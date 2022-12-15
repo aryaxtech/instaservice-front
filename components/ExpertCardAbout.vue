@@ -1,6 +1,6 @@
 <template>
   <div class="all-experts__container__cards__block">
-    <nuxt-link :to="{ path: `/expert/${expert.categorySlug}/${expert.slug}` }">
+    <nuxt-link :to="{ path: `/expert/${expert.categorySlug}/${expert.slug}` }" class="expert-link">
       <div class="all-experts__container__cards__block__photo">
         <img :src="expert.image" alt="photo" />
         <div
@@ -67,7 +67,10 @@
       </div>
     </nuxt-link>
     <div class="all-experts__btns">
-      <a v-if="expert.available" href="/" class="all-experts__btn online"
+      <a v-if="expert.available"
+         href="#"
+         class="all-experts__btn online"
+         @click="call(expert)"
         >Call</a
       >
       <a href="/" class="all-experts__btn">Schedule</a>
@@ -83,6 +86,11 @@ export default {
       required: true,
     },
   },
+  methods: {
+    call(expert) {
+      this.$nuxt.$emit('call', expert);
+    }
+  }
 };
 </script>
 
@@ -213,5 +221,8 @@ a {
       }
     }
   }
+}
+.expert-link {
+  color: #1f2131 !important;
 }
 </style>

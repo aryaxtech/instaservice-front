@@ -1,7 +1,11 @@
 import colors from 'vuetify/es5/util/colors';
 
 export default {
+  ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
+  server: {
+    port: 8080,
+  },
   head: {
     titleTemplate: '%s - instaservice-app',
     title: 'instaservice-app',
@@ -9,19 +13,21 @@ export default {
       lang: 'en',
     },
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' },
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {hid: 'description', name: 'description', content: ''},
+      {name: 'format-detection', content: 'telephone=no'},
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['~/assets/font.scss', '~/assets/global.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    { src: '@/plugins/socket', ssr: false },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: {
@@ -31,7 +37,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module',
+    // '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
   ],
@@ -40,7 +46,16 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    'nuxt-socket-io',
   ],
+
+  io: {
+    // module options
+    sockets: [{
+      name: 'main',
+      url: 'https://core.talkearn.app',
+    }]
+  },
 
   loading: {
     color: 'blue',

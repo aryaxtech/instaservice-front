@@ -35,7 +35,7 @@
           >
         </div>
         <div class="expert__cards__block__text__btns">
-          <a href="/" class="expert__cards__block__text__call__btn">Call</a>
+          <a href="#" class="expert__cards__block__text__call__btn" @click="call(expert)">Call</a>
           <a href="/" class="expert__cards__block__text__call__btn">Schedule</a>
         </div>
       </div>
@@ -55,6 +55,11 @@ export default {
       required: true,
     },
   },
+  methods: {
+    call(expert) {
+      this.$nuxt.$emit('call', expert);
+    }
+  }
 };
 </script>
 

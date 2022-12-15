@@ -177,8 +177,7 @@
                 Service 1
               </p>
               <p class="form__services__container__content__block__ex">
-                Example: I will consult You on how to invest in HODL (spot
-                crypto currency)
+                Example: I will consult You on how to spend time with Your kid
               </p>
               <UiBaseInput
                 v-model="expert.services[0].name"
@@ -229,7 +228,7 @@
                 Service 2
               </p>
               <p class="form__services__container__content__block__ex">
-                Example: I will consult You on how to setup a Metamask wallet
+                Example: I will consult You on how to help Your kid choose right profession
               </p>
               <UiBaseInput
                 v-model="expert.services[1].name"
@@ -280,7 +279,7 @@
                 Service 3
               </p>
               <p class="form__services__container__content__block__ex">
-                Example: I will consult You on how to start trading on crypto
+                Example: I will consult You on how to treat Your kid from anxiety
               </p>
               <UiBaseInput
                 v-model="expert.services[2].name"

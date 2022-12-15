@@ -7,15 +7,17 @@
       <Nuxt />
     </v-main>
     <TheFooter />
+    <app-call />
   </v-app>
 </template>
 
 <script>
 import TheFooter from '~/components/TheFooter.vue';
 import TheHeader from '~/components/TheHeader.vue';
+import AppCall from "~/components/calls/AppCall";
 
 export default {
-  components: { TheHeader, TheFooter },
+  components: { TheHeader, TheFooter, AppCall },
   data() {
     return {
       clipped: false,

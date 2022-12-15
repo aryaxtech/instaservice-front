@@ -84,7 +84,7 @@
           </div>
         </div>
         <div class="expert__head__right">
-          <button>Call</button>
+          <button @click="call(expert)">Call</button>
           <button>Schedule meeting</button>
         </div>
       </div>
@@ -153,6 +153,9 @@ export default {
   methods: {
     removeSlashed(text) {
       return text.replace(/\\/g, '');
+    },
+    call(expert) {
+      this.$nuxt.$emit('call', expert);
     },
   },
 };

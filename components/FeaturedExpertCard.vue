@@ -2,10 +2,11 @@
   <v-slide-item>
     <div class="all-experts__container__cards__block">
       <nuxt-link
+        class="expert-link"
         :to="{ path: `/expert/${expert.categorySlug}/${expert.slug}` }"
       >
         <div class="all-experts__container__cards__block__photo">
-          <img :src="expert.image" alt="photo" />
+          <img :src="expert.image" alt="photo"/>
           <div
             :class="{
               'all-experts__container__cards__block__photo__online':
@@ -72,12 +73,12 @@
         </div>
       </nuxt-link>
       <div class="all-experts__btns">
-        <nuxt-link
+        <a
           v-show="expert.available"
-          to="/"
           class="all-experts__btn online"
-          >Call
-        </nuxt-link>
+          @click="call(expert)"
+        >Call
+        </a>
         <nuxt-link to="/" class="all-experts__btn">Schedule</nuxt-link>
       </div>
     </div>
@@ -92,6 +93,11 @@ export default {
       required: true,
     },
   },
+  methods: {
+    call(expert) {
+      this.$nuxt.$emit('call', expert);
+    }
+  }
 };
 </script>
 
@@ -99,8 +105,10 @@ export default {
 .online {
   background: #219653 !important;
 }
+
 .all-experts {
   color: #1f2131 !important;
+
   &__btns {
     margin-top: 10px;
     padding-bottom: 10px;
@@ -108,6 +116,7 @@ export default {
     gap: 10px;
     justify-content: center;
   }
+
   &__btn {
     background: $purpleColor;
     padding: 15px 30px;
@@ -117,6 +126,7 @@ export default {
     border-radius: 60px;
     box-shadow: 0px 5px 29px rgba(62, 53, 120, 0.14);
   }
+
   &__container {
     &__cards {
       margin-top: 50px;
@@ -223,5 +233,9 @@ export default {
       }
     }
   }
+}
+
+.expert-link {
+  color: #1f2131 !important;
 }
 </style>

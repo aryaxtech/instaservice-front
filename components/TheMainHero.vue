@@ -10,8 +10,8 @@
           </div>
         </div>
         <p class="hero__description">
-          A community of crypto freelancers what can consult you and give
-          answers on every cypto topic
+          A community of psychologists that can consult you
+          and give answers on every psychology topic
         </p>
         <div class="search">
           <input

@@ -1,8 +1,8 @@
 <template>
-  <nuxt-link to="/">
+  <nuxt-link to="/" class="logo-wrapper">
     <svg
-      width="304"
-      height="55"
+      width="204"
+      height="35"
       viewBox="0 0 304 55"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -60,6 +60,9 @@
 </template>
 
 <style style="scss" scoped>
+.logo-wrapper {
+  display: flex;
+}
 .logo {
   margin-top: 15px;
 }
