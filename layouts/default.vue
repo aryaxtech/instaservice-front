@@ -8,6 +8,7 @@
       <Nuxt />
     </v-main>
     <TheFooter />
+    <app-call />
   </v-app>
 </template>
 
@@ -15,10 +16,11 @@
 import TheFooter from '~/components/TheFooter.vue';
 import TheHeader from '~/components/TheHeader.vue';
 import TheMainHero from '~/components/TheMainHero.vue';
+import AppCall from "~/components/calls/AppCall";
 
 export default {
   name: 'DefaultLayout',
-  components: { TheHeader, TheMainHero, TheFooter },
+  components: { TheHeader, TheMainHero, TheFooter, AppCall },
   data() {
     return {
       clipped: false,
@@ -46,6 +48,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/nullstyle.scss';
+
 .main-header {
   font-weight: 600;
   font-size: 40px;

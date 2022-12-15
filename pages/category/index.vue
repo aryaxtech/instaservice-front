@@ -1,7 +1,7 @@
 <template>
   <div class="category-page">
     <div class="crypto-topics">
-      <h1 class="main-header">Crypto topics</h1>
+      <h1 class="main-header">Psychology topics</h1>
       <BaseHeaderLine />
       <div v-if="error.message" class="crypto-topics__error">
         Ошибка загрузки

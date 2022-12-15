@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="stories__comments__block__text">
-      <p>People love our logo, and we love Talkearn.</p>
+      <p>People love our logo, and we love InstaService.</p>
     </div>
     <div class="stories__comments__block__info">
       <a href="" class="stories__comments__block__info__original"
