@@ -38,6 +38,10 @@ export default {
       font-weight: 500;
       transition: background-color 0.3s ease-in-out;
       transition: color 0.15s ease-in-out;
+
+      img {
+        width: 70%;
+      }
     }
 
     &__topic:hover {

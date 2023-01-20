@@ -1,16 +1,20 @@
 <template>
   <div class="expert__cards__block">
-    <img :src="service.image" class="expert__cards__block__img" alt="photo" />
+    <!--    <img :src="service.image" class="expert__cards__block__img" alt="photo" />-->
+    <video :src="service.video"
+           v-if="service.video"
+           width="300px"
+           controls></video>
     <div class="expert__cards__block__text">
       <div class="expert__cards__block__text__author">
         <img
-          :src="expert.image"
+          :src="expert.avatar"
           class="expert__cards__block__text__author__img"
           alt="photo"
         />
         <div class="expert__cards__block__text__author__name">
           <p>{{ expert.name }}</p>
-          <div class="expert__cards__block__text__author__name__rating">
+          <div class="expert__cards__block__text__author__name__rating" v-if="expert.rating">
             <span>{{ Number(expert.rating) }}</span>
             <v-rating
               background-color="#eee"
@@ -26,17 +30,23 @@
       </div>
       <div class="expert__cards__block__text__title">
         <p>{{ service.name }}</p>
+        <p><small>{{ service.description }}</small></p>
       </div>
       <div class="expert__cards__block__text__call">
         <div class="expert__cards__block__text__call__text">
-          <span class="expert__cards__block__text__call__price">$3</span>
+          <span class="expert__cards__block__text__call__price">${{ service.price }}</span>
           <span class="expert__cards__block__text__call__minute"
-            >per minute</span
+          >per minute</span
           >
         </div>
         <div class="expert__cards__block__text__btns">
           <a href="#" class="expert__cards__block__text__call__btn" @click="call(expert)">Call</a>
           <a href="/" class="expert__cards__block__text__call__btn">Schedule</a>
+        </div>
+        <div class="expert__cards__block__text__link">
+          <nuxt-link to="#">
+            view other psychologists who consults on {{ service.collection.name }}
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -77,6 +87,7 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 60px;
+
   &__cards {
     &__block {
       display: flex;
@@ -92,6 +103,7 @@ export default {
         //width: 260px;
         width: 100%;
       }
+
       &__img {
         width: 100%;
         object-fit: cover;
@@ -108,12 +120,21 @@ export default {
           width: 100%;
         }
       }
+
       &__text {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 10px;
         padding: 20px;
+
+        &__link {
+          text-align: center;
+          margin-top: 20px;
+          width: 70%;
+          font-size: 12px;
+        }
+
         &__btns {
           margin-top: 15px;
           gap: 10px;
@@ -121,12 +142,14 @@ export default {
           @include rwdmax(460px) {
             flex-direction: row;
           }
+
           a {
             @include rwdmax(325px) {
               font-size: 10px;
             }
           }
         }
+
         &__author {
           display: flex;
           align-items: center;
@@ -134,16 +157,19 @@ export default {
           @include rwdmax(460px) {
             flex-direction: column;
           }
+
           &__img {
             width: 60px;
             height: 60px;
             object-fit: cover;
             border-radius: 50%;
           }
+
           &__name {
             display: flex;
             flex-direction: column;
             gap: 10px;
+
             p {
               font-size: 18px;
               font-weight: 600;
@@ -151,6 +177,7 @@ export default {
                 text-align: center;
               }
             }
+
             &__rating {
               display: flex;
               align-items: center;
@@ -161,6 +188,7 @@ export default {
             }
           }
         }
+
         &__title {
           font-size: $fs;
           font-weight: 600;
@@ -168,6 +196,7 @@ export default {
             text-align: center;
           }
         }
+
         &__call {
           display: flex;
           justify-content: space-between;
@@ -177,15 +206,18 @@ export default {
             flex-direction: column;
             gap: 15px;
           }
+
           &__price {
             font-size: 19px;
             font-weight: 600;
             margin-right: 20px;
           }
+
           &__minute {
             font-size: $fs;
             font-weight: 500;
           }
+
           &__btn {
             color: $whiteColor;
             text-align: center;

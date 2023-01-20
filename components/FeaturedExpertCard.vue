@@ -3,14 +3,14 @@
     <div class="all-experts__container__cards__block">
       <nuxt-link
         class="expert-link"
-        :to="{ path: `/expert/${expert.categorySlug}/${expert.slug}` }"
+        :to="{ path: `/expert/${expert.category.slug}/${expert.slug}` }"
       >
         <div class="all-experts__container__cards__block__photo">
-          <img :src="expert.image" alt="photo"/>
+          <img :src="expert.avatar" alt="photo"/>
           <div
             :class="{
               'all-experts__container__cards__block__photo__online':
-                expert.available,
+                 expert.available,
               'all-experts__container__cards__block__photo__offline':
                 !expert.available,
             }"
@@ -28,7 +28,7 @@
           >
             {{ expert.profession }}
           </p>
-          <div class="all-experts__container__cards__block__info__rating">
+          <div class="all-experts__container__cards__block__info__rating" v-if="expert.rating">
             <v-rating
               color="#F4C95D"
               background-color="#F4C95D"
@@ -46,29 +46,45 @@
           </div>
         </div>
         <div class="all-experts__container__cards__block__more-info">
-          <div
-            v-if="expert.region"
-            class="all-experts__container__cards__block__more-info__text"
-          >
+          <div v-if="expert.region"
+            class="all-experts__container__cards__block__more-info__text">
             <span>From</span>
             <p>{{ expert.region }}</p>
           </div>
           <div class="all-experts__container__cards__block__more-info__text">
             <span>Member since</span>
             <p>
-              {{ expert.memberSince }}
+              {{ expert.createdAt }}
             </p>
           </div>
-          <div class="all-experts__container__cards__block__more-info__text">
+          <div class="all-experts__container__cards__block__more-info__text"
+               v-if="expert.price">
             <span>Rate</span>
             <p>$ {{ expert.price }} /hr</p>
           </div>
-          <div
-            v-if="expert.lastReview"
-            class="all-experts__container__cards__block__more-info__text"
-          >
+          <div class="all-experts__container__cards__block__more-info__text"
+               v-if="expert.language">
+            <span>Languages</span>
+            <p>{{ expert.language }}</p>
+          </div>
+          <div class="all-experts__container__cards__block__more-info__text"
+               v-if="expert.experience">
+            <span>Experience</span>
+            <p>{{ expert.experience }}</p>
+          </div>
+          <div class="all-experts__container__cards__block__more-info__text"
+               v-if="expert.parameters.duration">
+            <span>Duration</span>
+            <p>{{ expert.parameters.duration }}</p>
+          </div>
+          <div class="all-experts__container__cards__block__more-info__text"
+               v-if="expert.parameters.consultation">
+            <span>First free consultation</span>
+            <p>{{ expert.parameters.consultation }}</p>
+          </div>
+          <div class="all-experts__container__cards__block__more-info__text">
             <span>Latest Review</span>
-            <p>{{ expert.lastReview }}</p>
+            <p>{{ expert.updatedAt }}</p>
           </div>
         </div>
       </nuxt-link>

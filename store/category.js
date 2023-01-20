@@ -39,7 +39,7 @@ export const actions = {
     await categoryApi
       .getCategories()
       .then((responce) => {
-        commit('setCategories', responce.data.data);
+        commit('setCategories', responce.data);
         commit('setError', {});
       })
       .catch((err) => {

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { DefaultApiInstance } from "~/api/index";
 
 export default {
   /**
@@ -6,7 +7,17 @@ export default {
    * @returns Promise
    */
   getFeaturedExperts: async () => {
-    return await axios.get('https://back.instaservice.io/api/experts/featured');
+    const url = `/api/experts?recommended=1&active=1`;
+    return await DefaultApiInstance.get(url);
+  },
+
+  /**
+   * Fetch featured Experts
+   * @returns Promise
+   */
+  getOnlineExperts: async () => {
+    const url = `/api/experts?available=1&active=1`;
+    return await DefaultApiInstance.get(url);
   },
 
   /**
@@ -16,12 +27,8 @@ export default {
    * @returns Promise
    */
   getExpertBySlug: async (categorySlug, expertSlug) => {
-    return await axios.get('https://back.instaservice.io/api/expert', {
-      params: {
-        slug: expertSlug,
-        category_slug: categorySlug,
-      },
-    });
+    const url = `/api/expert/slug/${expertSlug}`;
+    return await DefaultApiInstance.get(url);
   },
 
   /**
@@ -31,12 +38,8 @@ export default {
    * @returns Promise
    */
   getExpertsByCategory: async (categoryId, pageNum) => {
-    return await axios.get('https://back.instaservice.io/api/experts', {
-      params: {
-        category_id: categoryId,
-        page: pageNum,
-      },
-    });
+    const url = `/api/experts?category_id=${categoryId}&active=1&page=${pageNum}`;
+    return await DefaultApiInstance.get(url);
   },
 
   /**
@@ -45,12 +48,8 @@ export default {
    * @returns Promise
    */
   searchExpert: async (searchText, pageNum) => {
-    return await axios.get('https://back.instaservice.io/api/experts/search', {
-      params: {
-        find: searchText,
-        page: pageNum,
-      },
-    });
+    const url = `/api/experts/search/?search=${searchText}&page=${pageNum}`;
+    return await DefaultApiInstance.get(url);
   },
 
   setExpert: async (expert) => {
