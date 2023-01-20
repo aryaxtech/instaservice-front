@@ -28,7 +28,7 @@
           color="indigo"
           class="text-h5 font-weight-light white--text"
         >
-          <img :src="item.image" />
+          <img :src="item.avatar" />
         </v-list-item-avatar>
         <v-badge
           v-if="item.available"
@@ -44,7 +44,7 @@
         />
         <v-list-item-content>
           <v-list-item-title>{{ item.name }}</v-list-item-title>
-          <v-list-item-subtitle>{{ item.categorySlug }}</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ item.category.slug }}</v-list-item-subtitle>
         </v-list-item-content>
       </template>
     </v-autocomplete>
@@ -148,7 +148,7 @@ export default {
       this.isLoading = false;
       this.clearExperts();
       this.$router.push(
-        `/expert/${this.localSearchValue.categorySlug}/${this.localSearchValue.slug}`
+        `/expert/${this.localSearchValue.category.slug}/${this.localSearchValue.slug}`
       );
     },
   },

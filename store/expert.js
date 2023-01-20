@@ -8,6 +8,7 @@ import expertApi from '~/api/expertApi.js';
 
 export const state = () => ({
   featuredExperts: [],
+  onlineExperts: [],
   experts: [],
 
   /**
@@ -24,6 +25,7 @@ export const state = () => ({
 
 export const getters = {
   getFeaturedExperts: (state) => state.featuredExperts,
+  getOnlineExperts: (state) => state.onlineExperts,
   getExperts: (state) => state.experts,
   getMeta: (state) => state.meta,
   getPage: (state) => state.page,
@@ -33,6 +35,10 @@ export const getters = {
 export const mutations = {
   setFeaturedExperts: (state, payload) => {
     state.featuredExperts = payload;
+  },
+
+  setOnlineExperts: (state, payload) => {
+    state.onlineExperts = payload;
   },
 
   setExperts: (state, payload) => {
@@ -70,6 +76,22 @@ export const actions = {
       .getFeaturedExperts()
       .then((response) => {
         commit('setFeaturedExperts', response.data.data);
+        commit('clearError');
+      })
+      .catch((err) => {
+        commit('setError', err);
+      });
+  },
+
+  /**
+   * Fetch Online Experts
+   * @param {Object} param0 context
+   */
+  fetchOnlineExperts: async ({ commit }) => {
+    await expertApi
+      .getOnlineExperts()
+      .then((response) => {
+        commit('setOnlineExperts', response.data.data);
         commit('clearError');
       })
       .catch((err) => {

@@ -1,9 +1,13 @@
 <template>
   <div class="banner">
-    <img class="banner__img" src="/img/expert-one/background.png" alt="background" />
-    <p>{{ title }}</p>
+    <p>
+      {{ title }}
+      <span>
+        {{ subTitle }}
+      </span>
+    </p>
     <nuxt-link to="/">
-      <img class="banner__arrow" src="/img/expert-one/arrow.svg" alt="arrow" />
+      <img class="banner__arrow" src="/img/expert-one/arrow.svg" alt="arrow"/>
     </nuxt-link>
   </div>
 </template>
@@ -12,6 +16,10 @@
 export default {
   props: {
     title: {
+      type: String,
+      required: true,
+    },
+    subTitle: {
       type: String,
       required: true,
     },
@@ -26,23 +34,33 @@ export default {
   justify-content: center;
   position: relative;
   z-index: 0;
+  height: 180px;
+  background-color: #5f4bdb;
+
   &__img {
     position: relative;
     z-index: 0;
     width: 100%;
   }
+
   p {
     position: absolute;
     font-size: 50px;
     font-weight: 800;
     color: $whiteColor;
     letter-spacing: 2px;
+    text-align: center;
     @include rwdmax(450px) {
       font-size: 19px;
       //display: none;
-      
+    }
+    span {
+      display: block;
+      text-align: center;
+      font-size: 30px;
     }
   }
+
   &__arrow {
     display: block;
     position: absolute;

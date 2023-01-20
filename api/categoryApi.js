@@ -1,4 +1,4 @@
-import axios from 'axios';
+import {DefaultApiInstance} from "~/api/index";
 
 export default {
   /**
@@ -6,7 +6,8 @@ export default {
    * @returns Promise
    */
   getCategories: async () => {
-    return await axios.get('https://back.instaservice.io/api/categories/');
+    const url = '/api/categories';
+    return await DefaultApiInstance.get(url);
   },
 
   /**
@@ -15,13 +16,7 @@ export default {
    * @returns Promise
    */
   getCategoryBySlug: async (categorySlug) => {
-    return await axios.get(
-      'https://back.instaservice.io/api/category?slug=investments',
-      {
-        params: {
-          slug: categorySlug,
-        },
-      }
-    );
+    const url = `/api/category/slug/${categorySlug}`;
+    return await DefaultApiInstance.get(url);
   },
 };

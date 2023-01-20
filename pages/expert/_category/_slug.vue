@@ -1,13 +1,26 @@
 <template>
   <div class="expert-page">
     <!-- Banner -->
-    <BaseBanner :title="expert.name" />
+    <BaseBanner :title="expert.name"
+                :sub-title="expert.profession"/>
 
     <!-- Expert Info -->
     <div class="expert">
+      <div v-if="expert.services.length">
+        <!--        <h1 class="main-header">Services I offer</h1>-->
+        <!--        <BaseHeaderLine/>-->
+        <div class="expert__cards">
+          <ExpertCardCall
+            v-for="(service, index) in expert.services"
+            :key="index"
+            :service="service"
+            :expert="expert"
+          />
+        </div>
+      </div>
       <div class="expert__head">
         <div class="expert__head__left">
-          <img :src="expert.image" alt="" />
+          <img :src="expert.avatar" alt=""/>
           <div class="expert__head__left__info">
             <div class="expert__head__left__info__about">
               <div class="expert__head__left__info__about__text">
@@ -20,7 +33,8 @@
                 >
                   {{ expert.profession }}
                 </p>
-                <div class="expert__head__left__info__about__text__rating">
+                <div class="expert__head__left__info__about__text__rating"
+                     v-if="expert.rating">
                   <v-rating
                     background-color="#eee"
                     color="warning"
@@ -47,39 +61,68 @@
             <div class="expert__head__left__info__extra">
               <div
                 v-if="expert.region"
-                class="expert__head__left__info__extra__block"
-              >
-                <span class="expert__head__left__info__extra__block__label"
-                  >From</span
-                >
-                <span class="expert__head__left__info__extra__block__text">{{
-                  expert.region
-                }}</span>
+                class="expert__head__left__info__extra__block">
+                <span class="expert__head__left__info__extra__block__label">From</span>
+                <span class="expert__head__left__info__extra__block__text">
+                  {{ expert.region }}
+                </span>
               </div>
-              <div class="expert__head__left__info__extra__block">
-                <span class="expert__head__left__info__extra__block__label"
-                  >Rate</span
-                >
-                <span class="expert__head__left__info__extra__block__text"
-                  >${{ expert.price }}/hr</span
-                >
+              <div
+                v-if="expert.language"
+                class="expert__head__left__info__extra__block">
+                <span class="expert__head__left__info__extra__block__label">Languages</span>
+                <span class="expert__head__left__info__extra__block__text">
+                  {{ expert.language }}
+                </span>
               </div>
-              <div class="expert__head__left__info__extra__block">
-                <span class="expert__head__left__info__extra__block__label"
-                  >Member since</span
-                >
-                <span class="expert__head__left__info__extra__block__text">{{
-                  expert.memberSince
-                }}</span>
+              <div
+                v-if="expert.experience"
+                class="expert__head__left__info__extra__block">
+                <span class="expert__head__left__info__extra__block__label">Experience</span>
+                <span class="expert__head__left__info__extra__block__text">
+                  {{ expert.experience }}
+                </span>
               </div>
-              <div class="expert__head__left__info__extra__block">
-                <span class="expert__head__left__info__extra__block__label"
-                  >Latest Review</span
-                >
-                <span class="expert__head__left__info__extra__block__text">{{
-                  expert.lastReview
-                }}</span>
+              <div
+                v-if="expert.price"
+                class="expert__head__left__info__extra__block">
+                <span class="expert__head__left__info__extra__block__label">Price</span>
+                <span class="expert__head__left__info__extra__block__text">
+                  ${{ expert.price }}
+                </span>
               </div>
+              <div
+                v-if="expert.parameters.duration"
+                class="expert__head__left__info__extra__block">
+                <span class="expert__head__left__info__extra__block__label">Duration of the consultation</span>
+                <span class="expert__head__left__info__extra__block__text">
+                  ${{ expert.parameters.duration }}
+                </span>
+              </div>
+              <div
+                v-if="expert.parameters.consultation"
+                class="expert__head__left__info__extra__block">
+                <span class="expert__head__left__info__extra__block__label">The first consultation is free</span>
+                <span class="expert__head__left__info__extra__block__text">
+                  ${{ expert.parameters.consultation }}
+                </span>
+              </div>
+              <!--              <div class="expert__head__left__info__extra__block">-->
+              <!--                <span class="expert__head__left__info__extra__block__label"-->
+              <!--                >Member since</span-->
+              <!--                >-->
+              <!--                <span class="expert__head__left__info__extra__block__text">{{-->
+              <!--                    expert.createdAt-->
+              <!--                  }}</span>-->
+              <!--              </div>-->
+              <!--              <div class="expert__head__left__info__extra__block">-->
+              <!--                <span class="expert__head__left__info__extra__block__label"-->
+              <!--                >Latest Review</span-->
+              <!--                >-->
+              <!--                <span class="expert__head__left__info__extra__block__text">{{-->
+              <!--                    expert.updatedAt-->
+              <!--                  }}</span>-->
+              <!--              </div>-->
             </div>
           </div>
         </div>
@@ -95,23 +138,18 @@
           :tag-name="tag"
         />
       </div> -->
-      <div class="expert__video" v-html="removeSlashed(expert.video)"></div>
+      <div class="expert__video" v-if="expert.video">
+        <video :src="expert.video"
+               width="100%"
+               controls></video>
+      </div>
 
-      <div class="expert__text">
-        <p>
-          {{ expert.description }}
-        </p>
+      <div class="expert__text" v-html="expert.description ">
+<!--        <p>-->
+<!--          {{ expert.description }}-->
+<!--        </p>-->
       </div>
-      <h1 class="main-header">Services I offer</h1>
-      <BaseHeaderLine />
-      <div class="expert__cards">
-        <ExpertCardCall
-          v-for="(service, index) in expert.services"
-          :key="index"
-          :service="service"
-          :expert="expert"
-        />
-      </div>
+
     </div>
   </div>
 </template>
@@ -125,16 +163,16 @@ import BaseBanner from '~/components/ui/BaseBanner.vue';
 import BaseHeaderLine from '~/components/ui/BaseHeaderLine.vue';
 
 export default {
-  components: { BaseBanner, CategoryTagItem, ExpertCardCall, BaseHeaderLine },
+  components: {BaseBanner, CategoryTagItem, ExpertCardCall, BaseHeaderLine},
   layout: () => 'emptyhero',
-  async asyncData({ params, error }) {
+  async asyncData({params, error}) {
     return await expertApi
       .getExpertBySlug(params.category, params.slug)
       .then((response) => {
-        return { expert: response.data.data };
+        return {expert: response.data};
       })
       .catch((e) => {
-        error({ statusCode: 404, message: e.response.data.errors });
+        error({statusCode: 404, message: e.response.data.errors});
       });
   },
   ssr: true,
@@ -197,7 +235,7 @@ export default {
     }
 
     &__left {
-      width: 70%;
+      width: 90%;
       display: flex;
       gap: 60px;
 

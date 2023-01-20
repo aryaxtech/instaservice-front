@@ -5,7 +5,7 @@
         <div class="call-animation">
           <img
             v-if="expert"
-            :src="expert.image"
+            :src="expert.avatar"
             alt="">
           <img
             v-else

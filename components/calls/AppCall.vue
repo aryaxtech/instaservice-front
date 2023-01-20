@@ -1,5 +1,5 @@
 <template>
-  <div class="call-app-wrapper">
+  <div class="call-app-wrapper call-app-display">
     <div class="call-app">
       <div class="call-container">
         <out-going-call :myId='myId' :recipientId='recipientId' :expert="expert"/>
@@ -11,6 +11,7 @@
 
 <script>
 
+import {mapActions} from "vuex";
 import OutGoingCall from "@/components/calls/OutGoingCall";
 import VideoCall from "@/components/calls/VideoCall";
 
@@ -32,12 +33,19 @@ export default {
   mounted() {
     this.$nuxt.$on('call', (expert) => {
       this.expert = expert;
+      this.recipientId = `expert-${expert.id}`;
       this.initCall();
     });
   },
   created() {
-    this.myId = Math.random().toString(36).substr(2);
-    this.recipientId = '2wZ*h5C5h$7i';
+    if (localStorage.getItem('userID')) {
+      this.myId = localStorage.getItem('userID');
+    } else {
+      this.myId = Math.random().toString(36).substr(2);
+      localStorage.setItem('userID', this.myId );
+    }
+
+    this.addClient();
 
     this.socket = this.$nuxtSocket({
       channel: '/'
@@ -52,6 +60,16 @@ export default {
     })
   },
   methods: {
+    ...mapActions({
+      setClient: 'client/setClient',
+    }),
+    async addClient() {
+      const data = {
+        cookie: this.myId,
+        available: true,
+      };
+      await this.setClient(data);
+    },
     initCall() {
       const data = {
         senderId: this.myId,
@@ -323,7 +341,7 @@ $blue: #5f4bdb;
 }
 
 .call-app-display {
-  bottom: 0px !important;
+  bottom: 0 !important;
 }
 
 </style>

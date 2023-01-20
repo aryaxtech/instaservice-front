@@ -97,11 +97,11 @@ export default {
       .getCategoryBySlug(params.slug)
       .then(async (response) => {
         await store.dispatch('expert/fetchExpertsByCategory', {
-          categoryId: response.data.data.id,
+          categoryId: response.data.id,
           page: 1,
         });
-        store.dispatch('category/setCurrentCategory', {
-          currentCategory: response.data.data.name,
+        await store.dispatch('category/setCurrentCategory', {
+          currentCategory: response.data.name,
         });
       })
       .catch(({ response }) => {
