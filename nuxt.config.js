@@ -4,7 +4,7 @@ export default {
   ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   server: {
-    port: 8080,
+    port: 3021,
   },
   head: {
     titleTemplate: '%s - instaservice-app',
