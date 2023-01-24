@@ -158,7 +158,7 @@ export default {
 }
 .all-experts {
   &__container {
-    width: 85%;
+    width: 70%;
     margin: 70px auto;
     display: flex;
     flex-direction: column;

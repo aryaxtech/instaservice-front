@@ -1,7 +1,6 @@
 <template>
   <div>
     <!-- ~ Landing Page ~ -->
-
     <!-- Crypto Topics Section -->
     <CategorySection />
 

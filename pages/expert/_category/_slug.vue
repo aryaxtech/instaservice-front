@@ -7,10 +7,14 @@
     <!-- Expert Info -->
     <div class="expert">
       <div v-if="expert.services.length">
-        <!--        <h1 class="main-header">Services I offer</h1>-->
-        <!--        <BaseHeaderLine/>-->
         <div class="expert__cards">
           <ExpertCardCall
+            v-if="hashedService"
+            :service="hashedService"
+            :expert="expert"
+          />
+          <ExpertCardCall
+            v-if="service.id !== hashedServiceId"
             v-for="(service, index) in expert.services"
             :key="index"
             :service="service"
@@ -138,17 +142,13 @@
           :tag-name="tag"
         />
       </div> -->
-      <div class="expert__video" v-if="expert.video">
+      <div class="expert__video text-center" v-if="expert.video">
         <video :src="expert.video"
-               width="100%"
+               width="340"
                controls></video>
       </div>
 
-      <div class="expert__text" v-html="expert.description ">
-<!--        <p>-->
-<!--          {{ expert.description }}-->
-<!--        </p>-->
-      </div>
+      <div class="expert__text" v-html="expert.description "></div>
 
     </div>
   </div>
@@ -156,6 +156,7 @@
 
 <script>
 import expertApi from '~/api/expertApi.js';
+import serviceApi from "~/api/serviceApi";
 
 import CategoryTagItem from '~/components/CategoryTagItem.vue';
 import ExpertCardCall from '~/components/ExpertCardCall.vue';
@@ -165,15 +166,23 @@ import BaseHeaderLine from '~/components/ui/BaseHeaderLine.vue';
 export default {
   components: {BaseBanner, CategoryTagItem, ExpertCardCall, BaseHeaderLine},
   layout: () => 'emptyhero',
-  async asyncData({params, error}) {
-    return await expertApi
-      .getExpertBySlug(params.category, params.slug)
-      .then((response) => {
-        return {expert: response.data};
-      })
-      .catch((e) => {
-        error({statusCode: 404, message: e.response.data.errors});
-      });
+  async asyncData({route, params, error}) {
+    const hash = route.hash.substring(1);
+    let hashedService = null;
+    if (hash) {
+      try {
+        const serviceResult = await serviceApi.getServiceByHash(hash);
+        hashedService = serviceResult.data;
+      } catch (e) {
+      }
+    }
+    const hashedServiceId = hashedService ? hashedService.id : 0;
+    try {
+      const expertResult = await expertApi.getExpertBySlug(params.category, params.slug)
+      return {expert: expertResult.data, hashedService, hashedServiceId};
+    } catch (e) {
+      error({statusCode: 404, message: e.response.data.errors});
+    }
   },
   ssr: true,
   data: () => {
@@ -188,6 +197,12 @@ export default {
       title: 'Crypto Startup Advisor',
     };
   },
+  mounted() {
+    if (this.$route.hash) {
+      const hash = this.$route.hash;
+
+    }
+  },
   methods: {
     removeSlashed(text) {
       return text.replace(/\\/g, '');
@@ -201,7 +216,7 @@ export default {
 
 <style lang="scss" scoped>
 .expert {
-  width: 70%;
+  width: 80%;
   @include rwdmax(730px) {
     width: calc(100% - 40px);
   }
@@ -423,9 +438,14 @@ export default {
   }
 
   &__text {
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 14px;
+    font-weight: 600;
+
     p {
       font-size: 18px;
       line-height: 1.5;
+      margin: 20px 0 !important;
     }
   }
 
@@ -522,6 +542,10 @@ export default {
         }
       }
     }
+  }
+  video {
+    border-radius: 15px;
+    box-shadow: 0px 11px 39px rgba(0, 0, 0, 0.2);
   }
 }
 </style>

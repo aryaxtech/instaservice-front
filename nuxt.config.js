@@ -1,4 +1,6 @@
 import colors from 'vuetify/es5/util/colors';
+import ro from './locales/ro';
+import ru from './locales/ru';
 
 export default {
   ssr: false,
@@ -47,7 +49,20 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     'nuxt-socket-io',
+    '@nuxtjs/i18n',
   ],
+
+  i18n: {
+    locales: ['ro', 'ru'],
+    defaultLocale: 'ro',
+    vueI18n: {
+      fallbackLocale: 'ro',
+      messages: {
+        ro: {...ro},
+        ru: {...ru},
+      }
+    }
+  },
 
   io: {
     // module options

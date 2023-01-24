@@ -52,12 +52,14 @@ export default {
     text-align: center;
     @include rwdmax(450px) {
       font-size: 19px;
-      //display: none;
     }
     span {
       display: block;
       text-align: center;
       font-size: 30px;
+      @include rwdmax(450px) {
+        font-size: 19px;
+      }
     }
   }
 

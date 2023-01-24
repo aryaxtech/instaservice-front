@@ -3,7 +3,8 @@
     <!--    <img :src="service.image" class="expert__cards__block__img" alt="photo" />-->
     <video :src="service.video"
            v-if="service.video"
-           width="300px"
+           width="100%"
+           height="660"
            controls></video>
     <div class="expert__cards__block__text">
       <div class="expert__cards__block__text__author">
@@ -29,7 +30,7 @@
         </div>
       </div>
       <div class="expert__cards__block__text__title">
-        <p>{{ service.name }}</p>
+        <p class="text-center">{{ service.name }}</p>
         <p><small>{{ service.description }}</small></p>
       </div>
       <div class="expert__cards__block__text__call">
@@ -44,8 +45,8 @@
           <a href="/" class="expert__cards__block__text__call__btn">Schedule</a>
         </div>
         <div class="expert__cards__block__text__link">
-          <nuxt-link to="#">
-            view other psychologists who consults on {{ service.collection.name }}
+          <nuxt-link :to="`/collections/${service.collection.slug}`">
+            Vezi alti psihologi care consulta pe {{ service.collection.name }}
           </nuxt-link>
         </div>
       </div>
@@ -132,7 +133,13 @@ export default {
           text-align: center;
           margin-top: 20px;
           width: 70%;
-          font-size: 12px;
+
+          a {
+            color: rgba(0, 0, 0, 0.87);
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: underline;
+          }
         }
 
         &__btns {
@@ -231,6 +238,10 @@ export default {
         }
       }
     }
+  }
+  video {
+    border-radius: 15px;
+    box-shadow: 0px 11px 39px rgba(0, 0, 0, 0.2);
   }
 }
 </style>
