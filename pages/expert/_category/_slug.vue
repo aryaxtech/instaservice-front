@@ -6,22 +6,22 @@
 
     <!-- Expert Info -->
     <div class="expert">
-      <div v-if="expert.services.length">
-        <div class="expert__cards">
-          <ExpertCardCall
-            v-if="hashedService"
-            :service="hashedService"
-            :expert="expert"
-          />
-          <ExpertCardCall
-            v-if="service.id !== hashedServiceId"
-            v-for="(service, index) in expert.services"
-            :key="index"
-            :service="service"
-            :expert="expert"
-          />
-        </div>
-      </div>
+            <div v-if="services.length">
+              <div class="expert__cards">
+                <ExpertCardCall
+                  v-if="hashedService"
+                  :service="hashedService"
+                  :expert="expert"
+                />
+                <ExpertCardCall
+                  v-if="service.id !== hashedServiceId"
+                  v-for="(service, index) in services"
+                  :key="index"
+                  :service="service"
+                  :expert="expert"
+                />
+              </div>
+            </div>
       <div class="expert__head">
         <div class="expert__head__left">
           <img :src="expert.avatar" alt=""/>
@@ -111,22 +111,6 @@
                   ${{ expert.parameters.consultation }}
                 </span>
               </div>
-              <!--              <div class="expert__head__left__info__extra__block">-->
-              <!--                <span class="expert__head__left__info__extra__block__label"-->
-              <!--                >Member since</span-->
-              <!--                >-->
-              <!--                <span class="expert__head__left__info__extra__block__text">{{-->
-              <!--                    expert.createdAt-->
-              <!--                  }}</span>-->
-              <!--              </div>-->
-              <!--              <div class="expert__head__left__info__extra__block">-->
-              <!--                <span class="expert__head__left__info__extra__block__label"-->
-              <!--                >Latest Review</span-->
-              <!--                >-->
-              <!--                <span class="expert__head__left__info__extra__block__text">{{-->
-              <!--                    expert.updatedAt-->
-              <!--                  }}</span>-->
-              <!--              </div>-->
             </div>
           </div>
         </div>
@@ -135,13 +119,6 @@
           <button>Schedule meeting</button>
         </div>
       </div>
-      <!-- <div class="expert__tags">
-        <CategoryTagItem
-          v-for="(tag, index) in tags"
-          :key="index"
-          :tag-name="tag"
-        />
-      </div> -->
       <div class="expert__video text-center" v-if="expert.video">
         <video :src="expert.video"
                width="340"
@@ -174,12 +151,14 @@ export default {
         const serviceResult = await serviceApi.getServiceByHash(hash);
         hashedService = serviceResult.data;
       } catch (e) {
+        console.log(e)
       }
     }
     const hashedServiceId = hashedService ? hashedService.id : 0;
     try {
       const expertResult = await expertApi.getExpertBySlug(params.category, params.slug)
-      return {expert: expertResult.data, hashedService, hashedServiceId};
+      const servicesResult = await serviceApi.getExpertServices(expertResult.data.id);
+      return {expert: expertResult.data, services: servicesResult.data, hashedService, hashedServiceId};
     } catch (e) {
       error({statusCode: 404, message: e.response.data.errors});
     }
@@ -543,6 +522,7 @@ export default {
       }
     }
   }
+
   video {
     border-radius: 15px;
     box-shadow: 0px 11px 39px rgba(0, 0, 0, 0.2);

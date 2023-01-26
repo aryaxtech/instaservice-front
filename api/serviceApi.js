@@ -9,4 +9,8 @@ export default {
     const url = `/api/collection/slug/${slug}`;
     return await DefaultApiInstance.get(url);
   },
+  getExpertServices: async (id) => {
+    const url = `/api/services/expert/${id}`;
+    return await DefaultApiInstance.get(url);
+  }
 };

@@ -68,7 +68,7 @@ export default {
     // module options
     sockets: [{
       name: 'main',
-      url: 'https://core.talkearn.app',
+      url: 'https://core.instantexpert.online',
     }]
   },
 

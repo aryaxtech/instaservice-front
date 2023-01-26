@@ -72,15 +72,17 @@
             <span>Experience</span>
             <p>{{ expert.experience }}</p>
           </div>
-          <div class="all-experts__container__cards__block__more-info__text"
-               v-if="expert.parameters.duration">
-            <span>Duration</span>
-            <p>{{ expert.parameters.duration }}</p>
-          </div>
-          <div class="all-experts__container__cards__block__more-info__text"
-               v-if="expert.parameters.consultation">
-            <span>First free consultation</span>
-            <p>{{ expert.parameters.consultation }}</p>
+          <div v-if="expert.parameters">
+            <div class="all-experts__container__cards__block__more-info__text"
+                 v-if="expert.parameters.duration">
+              <span>Duration</span>
+              <p>{{ expert.parameters.duration }}</p>
+            </div>
+            <div class="all-experts__container__cards__block__more-info__text"
+                 v-if="expert.parameters.consultation">
+              <span>First free consultation</span>
+              <p>{{ expert.parameters.consultation }}</p>
+            </div>
           </div>
           <div class="all-experts__container__cards__block__more-info__text">
             <span>Latest Review</span>
