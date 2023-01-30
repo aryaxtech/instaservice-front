@@ -3,7 +3,7 @@ import VueSocketIO from 'vue-socket.io'
 import { io } from "socket.io-client";
 
 const options = {};
-const socketURL = 'https://core.talkearn.app';
+const socketURL = 'https://core.instantexpert.online';
 
 export default function ({store}) {
   Vue.use(

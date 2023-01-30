@@ -88,7 +88,7 @@ export default {
     },
     async getToken() {
       const result = await axios.get(
-          `https://core.talkearn.app/api/calls/token?identity=identity${this.myId}${this.recipientId}`
+          `https://core.instantexpert.online/api/calls/token?identity=identity${this.myId}${this.recipientId}`
       );
       this.token = result.data.token;
     },
