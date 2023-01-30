@@ -2,7 +2,7 @@
   <v-footer class="footer">
     <div class="footer__container">
       <div class="footer__container__left">
-        <img src="@/static/logo-white.svg" style="width: 300px" alt="" />
+        <img src="@/static/img/white-logo.png" style="width: 300px" alt="" />
 
         <div class="footer__container__right">
           <div class="footer__container__right__block">
