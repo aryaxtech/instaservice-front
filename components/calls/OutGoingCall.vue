@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="details">
-        Call to
+        {{ $t('callTo') }}
         <span v-if="expert">{{ expert.name }}</span>
         <span v-else>Expert</span>
         ...</div>

@@ -71,9 +71,11 @@ export const actions = {
    * Fetch Featured Experts
    * @param {Object} param0 context
    */
-  fetchFeaturedExperts: async ({ commit }) => {
+  fetchFeaturedExperts: async ({ commit, rootGetters }) => {
+    const defaultLanguage = rootGetters['language/getDefaultLanguage'];
+    const languageAbbr = defaultLanguage ? defaultLanguage : 'ro';
     await expertApi
-      .getFeaturedExperts()
+      .getFeaturedExperts(languageAbbr)
       .then((response) => {
         commit('setFeaturedExperts', response.data.data);
         commit('clearError');
@@ -87,9 +89,11 @@ export const actions = {
    * Fetch Online Experts
    * @param {Object} param0 context
    */
-  fetchOnlineExperts: async ({ commit }) => {
+  fetchOnlineExperts: async ({ commit, rootGetters }) => {
+    const defaultLanguage = rootGetters['language/getDefaultLanguage'];
+    const languageAbbr = defaultLanguage ? defaultLanguage : 'ro';
     await expertApi
-      .getOnlineExperts()
+      .getOnlineExperts(languageAbbr)
       .then((response) => {
         commit('setOnlineExperts', response.data.data);
         commit('clearError');
@@ -104,9 +108,11 @@ export const actions = {
    * @param {Object} param0 context
    * @param {Object} param1 fetch params
    */
-  fetchExpertsByCategory: async ({ commit }, { categoryId, page }) => {
+  fetchExpertsByCategory: async ({ commit, rootGetters }, { categoryId, page }) => {
+    const defaultLanguage = rootGetters['language/getDefaultLanguage'];
+    const languageAbbr = defaultLanguage ? defaultLanguage : 'ro';
     await expertApi
-      .getExpertsByCategory(categoryId, page)
+      .getExpertsByCategory(categoryId, page, languageAbbr)
       .then((response) => {
         commit('setExperts', response.data.data);
         commit('setMeta', response.data.meta);
@@ -149,9 +155,11 @@ export const actions = {
    * @param {Object} param0 context
    * @param {Object} param1 fetch params
    */
-  fetchSearchExperts: async ({ commit }, { searchText }) => {
+  fetchSearchExperts: async ({ commit, rootGetters }, { searchText }) => {
+    const defaultLanguage = rootGetters['language/getDefaultLanguage'];
+    const languageAbbr = defaultLanguage ? defaultLanguage : 'ro';
     await expertApi
-      .searchExpert(searchText, 1)
+      .searchExpert(searchText, 1, languageAbbr)
       .then((response) => {
         commit('setExperts', response.data.data);
         commit('setMeta', response.data.meta);

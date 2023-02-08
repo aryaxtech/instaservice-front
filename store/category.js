@@ -35,9 +35,11 @@ export const actions = {
    * Fetch all categories
    * @param {Object} param0 context
    */
-  fetchCategories: async ({ commit }) => {
+  fetchCategories: async ({ commit, rootGetters }) => {
+    const defaultLanguage = rootGetters['language/getDefaultLanguage'];
+    const languageAbbr = defaultLanguage ? defaultLanguage : 'ro';
     await categoryApi
-      .getCategories()
+      .getCategories(languageAbbr)
       .then((responce) => {
         commit('setCategories', responce.data);
         commit('setError', {});

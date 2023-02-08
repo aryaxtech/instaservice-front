@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import CategoryCard from '~/components/CategoryCard.vue';
 import BaseHeaderLine from '~/components/ui/BaseHeaderLine.vue';
 export default {
@@ -78,12 +78,23 @@ export default {
       await store.dispatch('category/fetchCategories');
     }
   },
+  watch: {
+    defaultLanguage() {
+      this.fetchCategories();
+    },
+  },
   computed: {
     ...mapGetters({
+      defaultLanguage: 'language/getDefaultLanguage',
       categories: 'category/getCategories',
       error: 'category/getError',
     }),
   },
+  methods: {
+    ...mapActions({
+      fetchCategories: 'category/fetchCategories',
+    }),
+  }
 };
 </script>
 

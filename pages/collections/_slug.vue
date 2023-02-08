@@ -1,7 +1,7 @@
 <template>
   <div class="expert-page">
     <BaseBanner :title="''"
-                :sub-title="`Psihologi care consulta pe ${collection.name}`"/>
+                :sub-title="`${$t('psychologistConsultation')} ${collection.name}`"/>
     <div class="expert">
       <v-row v-for="(service, key) in collection.services" :key="key"
              :class="{rowExpertLtr: key % 2 === 0, rowExpertRtl: key % 2 === 1}">
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 import serviceApi from "~/api/serviceApi";
 import BaseBanner from '~/components/ui/BaseBanner.vue';
 import FeaturedExpertCard from '~/components/FeaturedExpertCard'
@@ -28,14 +29,35 @@ export default {
   name: "_slug",
   layout: () => 'emptyhero',
   components: {BaseBanner, FeaturedExpertCard},
-  async asyncData({params, error}) {
+  data() {
+    return {
+      collection: {},
+    }
+  },
+  async asyncData({store, params, error}) {
     try {
-      const result = await serviceApi.getCollectionBySlug(params.slug)
+      const defaultLanguage = store.getters['language/getDefaultLanguage'];
+      const result = await serviceApi.getCollectionBySlug(params.slug, defaultLanguage)
       return {collection: result.data};
     } catch (e) {
       error({statusCode: 404, message: e.response.data.errors});
     }
   },
+  watch: {
+    async defaultLanguage() {
+      try {
+        const result = await serviceApi.getCollectionBySlug(this.$route.params.slug, this.defaultLanguage)
+        this.collection = result.data;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  },
+  computed: {
+    ...mapGetters({
+      defaultLanguage: 'language/getDefaultLanguage',
+    })
+  }
 }
 </script>
 

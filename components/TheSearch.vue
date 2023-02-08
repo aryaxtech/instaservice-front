@@ -14,13 +14,13 @@
       item-value="id"
       :filter="filerData"
       return-object
-      label="Search experts..."
+      :label="$t('searchExpert')"
       solo
       @change="getExpertPage()"
     >
       <template #no-data>
         <v-list-item>
-          <v-list-item-title> Search for expert </v-list-item-title>
+          <v-list-item-title> {{ $t('searchExpert') }} </v-list-item-title>
         </v-list-item>
       </template>
       <template #item="{ item }">
@@ -104,18 +104,20 @@ export default {
     }),
 
     filerData(item, queryText) {
-      return (
-        item.name.toLowerCase().includes(queryText.toLowerCase()) ||
-        item.description.toLowerCase().includes(queryText.toLowerCase()) ||
-        item.slug.toLowerCase().includes(queryText.toLowerCase()) ||
-        item.categorySlug.toLowerCase().includes(queryText.toLowerCase())
-      );
+      if (item) {
+        return (
+          item.name.toLowerCase().includes(queryText.toLowerCase()) ||
+          item.description.toLowerCase().includes(queryText.toLowerCase()) ||
+          item.slug.toLowerCase().includes(queryText.toLowerCase()) ||
+          item.categorySlug.toLowerCase().includes(queryText.toLowerCase())
+        );
+      }
     },
 
     async setGlobalSearchValue(searchValue) {
       this.isLoading = false;
       if (this.$route.name === 'search') {
-        this.$router.push(`/search?find=${searchValue}`);
+        this.$router.push(`/${this.$i18n.locale}/search?find=${searchValue}`);
       }
 
       if (!searchValue) {
@@ -141,14 +143,14 @@ export default {
       if (this.search === null) {
         this.search = '';
       }
-      this.$router.push(`/search?find=${this.search}`);
+      this.$router.push(`/${this.$i18n.locale}/search?find=${this.search}`);
     },
 
     getExpertPage() {
       this.isLoading = false;
       this.clearExperts();
       this.$router.push(
-        `/expert/${this.localSearchValue.category.slug}/${this.localSearchValue.slug}`
+        `/${this.$i18n.locale}/expert/${this.localSearchValue.category.slug}/${this.localSearchValue.slug}`
       );
     },
   },

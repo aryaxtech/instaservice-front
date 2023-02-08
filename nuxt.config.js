@@ -3,6 +3,7 @@ import ro from './locales/ro';
 import ru from './locales/ru';
 
 export default {
+  mode: 'universal',
   ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   server: {
@@ -53,6 +54,7 @@ export default {
   ],
 
   i18n: {
+    strategy: 'prefix',
     locales: ['ro', 'ru'],
     defaultLocale: 'ro',
     vueI18n: {

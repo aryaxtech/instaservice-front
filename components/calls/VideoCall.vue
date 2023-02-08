@@ -127,7 +127,6 @@ export default {
         })
 
         room.on('participantConnected', participant => {
-          console.log('participantConnected')
           participant.tracks.forEach(publication => {
             if (publication.isSubscribed) {
               const track = publication.track

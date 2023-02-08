@@ -3,29 +3,28 @@
     <div class="hero__container">
       <div class="hero__left">
         <div class="hero__info">
-          <p class="hero__text">Find Your</p>
-          <p class="hero__text--purple">Psychologist</p>
+          <p class="hero__text">{{ $t('findYour') }}</p>
+          <p class="hero__text--purple">{{ $t('psychologist') }}</p>
           <div class="hero__text">
-            and get in touch <span class="hero__text--purple">Now</span>
+            {{ $t('andGetInTouch') }} <span class="hero__text--purple">{{ $t('now') }}</span>
           </div>
         </div>
         <p class="hero__description">
-          A community of psychologists that can consult you
-          and give answers on every psychology topic
+          {{ $t('bannerTitle') }}
         </p>
         <div class="search">
           <input
             v-model="searchValue"
             type="search"
-            placeholder="Search here..."
+            :placeholder="$t('searcHere')"
             class="search__input"
           />
-          <button class="search__button" @click="search">Search</button>
+          <button class="search__button" @click="search">{{ $t('search') }}</button>
         </div>
       </div>
       <div class="hero__right">
         <div>
-          <img class="hero__photo" src="/img/index/main/woman.png" alt="" />
+          <img class="hero__photo" src="/img/index/main/woman.png" alt=""/>
         </div>
       </div>
     </div>
@@ -156,6 +155,7 @@ export default {
     }
   }
 }
+
 .search {
   margin-top: 30px;
   position: relative;

@@ -5,8 +5,8 @@ export default {
    * Fetch all categories
    * @returns Promise
    */
-  getCategories: async () => {
-    const url = '/api/categories';
+  getCategories: async (languageAbbr) => {
+    const url = `/api/categories?lang=${languageAbbr}`;
     return await DefaultApiInstance.get(url);
   },
 

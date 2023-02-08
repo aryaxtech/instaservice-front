@@ -20,64 +20,64 @@
         <div id="myLinks">
           <ul>
             <li class="mobile__item">
-              Experts
+              {{ $t('experts') }}
               <ul>
                 <li class="mobile__subitem">
-                  <nuxt-link to="/">Home Page</nuxt-link>
+                  <nuxt-link :to="`/${$i18n.locale}`">{{ $t('homePage') }}</nuxt-link>
                 </li>
                 <li class="mobile__subitem">
-                  <nuxt-link to="/category">Experts By Category</nuxt-link>
+                  <nuxt-link :to="`/${$i18n.locale}/category`">{{ $t('expertsByCategory') }}</nuxt-link>
                 </li>
               </ul>
             </li>
+            <!--            <li class="mobile__item">-->
+            <!--              Become an expert-->
+            <!--              <ul>-->
+            <!--                <li class="mobile__subitem">-->
+            <!--                  <nuxt-link :to="`/${$i18n.locale}/become`">How to become an expert</nuxt-link>-->
+            <!--                </li>-->
+            <!--                <li class="mobile__subitem">-->
+            <!--                  <nuxt-link :to="`/${$i18n.locale}/become/expert`">Fill out the form</nuxt-link>-->
+            <!--                </li>-->
+            <!--              </ul>-->
+            <!--            </li>-->
             <li class="mobile__item">
-              Become an expert
+              {{ $t('docs') }}
               <ul>
                 <li class="mobile__subitem">
-                  <nuxt-link to="/become">How to become an expert</nuxt-link>
-                </li>
-                <li class="mobile__subitem">
-                  <nuxt-link to="/become/expert">Fill out the form</nuxt-link>
-                </li>
-              </ul>
-            </li>
-            <li class="mobile__item">
-              Docs
-              <ul>
-                <li class="mobile__subitem">
                   <a
                     target="_blank"
-                    href="https://talkearn.gitbook.io/instaservice/"
-                    >Gitbook</a
-                  >
+                    href="https://talkearn.gitbook.io/instaservice/">
+                    {{ $t('gitbook') }}
+                  </a>
                 </li>
                 <li class="mobile__subitem">
                   <a
                     target="_blank"
-                    href="https://talkearn.gitbook.io/instaservice/our-ecosystem/about-instaservice"
-                    >About</a
-                  >
+                    href="https://talkearn.gitbook.io/instaservice/our-ecosystem/about-instaservice">
+                    {{ $t('about') }}
+                  </a>
                 </li>
                 <li class="mobile__subitem">
                   <a
                     target="_blank"
-                    href="https://talkearn.gitbook.io/instaservice/our-ecosystem/how-it-works"
-                    >How it work</a
-                  >
+                    href="https://talkearn.gitbook.io/instaservice/our-ecosystem/how-it-works">
+                    {{ $t('howItWork') }}
+                  </a>
                 </li>
                 <li class="mobile__subitem">
                   <a
                     target="_blank"
-                    href="https://talkearn.gitbook.io/instaservice/our-ecosystem/faq"
-                    >FAQ</a
-                  >
+                    href="https://talkearn.gitbook.io/instaservice/our-ecosystem/faq">
+                    {{ $t('faq') }}
+                  </a>
                 </li>
                 <li class="mobile__subitem">
                   <a
                     target="_blank"
-                    href="https://www.canva.com/design/DAFTCFsSz6s/3HdX7szhwt0aILtTU0C6yQ/view?utm_content=DAFTCFsSz6s&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelin"
-                    >Pitch Deck</a
-                  >
+                    href="https://www.canva.com/design/DAFTCFsSz6s/3HdX7szhwt0aILtTU0C6yQ/view?utm_content=DAFTCFsSz6s&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelin">
+                    {{ $t('pitchDeck') }}
+                  </a>
                 </li>
               </ul>
             </li>
@@ -105,7 +105,7 @@
                 />
               </svg>
               <a href="mailto:info@talkearn.app" style="color: gray"
-                >info@instaservice.io</a
+              >info@instaservice.io</a
               >
             </li>
             <li class="mobile__subitem-bottom">
@@ -139,43 +139,43 @@
       <li class="navigation__item">
         <v-menu open-on-hover close-on-click rounded="b-xl" offset-y>
           <template #activator="{ on, attrs }">
-            <div stlye="z-index: 10" v-bind="attrs" v-on="on">Experts</div>
+            <div stlye="z-index: 10" v-bind="attrs" v-on="on"> {{ $t('experts') }}</div>
           </template>
           <v-list>
             <v-list-item>
               <v-list-item-title>
-                <nuxt-link to="/">Home Page</nuxt-link>
+                <nuxt-link :to="`/${$i18n.locale}`">{{ $t('homePage') }}</nuxt-link>
               </v-list-item-title>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>
-                <nuxt-link to="/category">Experts By Category</nuxt-link>
+                <nuxt-link :to="`/${$i18n.locale}/category`">{{ $t('expertsByCategory') }}</nuxt-link>
               </v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
       </li>
-      <li class="navigation__item">
-        <v-menu open-on-hover close-on-click rounded="b-xl" offset-y>
-          <template #activator="{ on, attrs }">
-            <div stlye="z-index: 10" v-bind="attrs" v-on="on">
-              Become an expert
-            </div>
-          </template>
-          <v-list>
-            <v-list-item>
-              <v-list-item-title>
-                <nuxt-link to="/become">How to become an expert</nuxt-link>
-              </v-list-item-title>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-title>
-                <nuxt-link to="/become/expert">Fill out the form</nuxt-link>
-              </v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </li>
+      <!--      <li class="navigation__item">-->
+      <!--        <v-menu open-on-hover close-on-click rounded="b-xl" offset-y>-->
+      <!--          <template #activator="{ on, attrs }">-->
+      <!--            <div stlye="z-index: 10" v-bind="attrs" v-on="on">-->
+      <!--              Become an expert-->
+      <!--            </div>-->
+      <!--          </template>-->
+      <!--          <v-list>-->
+      <!--            <v-list-item>-->
+      <!--              <v-list-item-title>-->
+      <!--                <nuxt-link to="/become">How to become an expert</nuxt-link>-->
+      <!--              </v-list-item-title>-->
+      <!--            </v-list-item>-->
+      <!--            <v-list-item>-->
+      <!--              <v-list-item-title>-->
+      <!--                <nuxt-link to="/become/expert">Fill out the form</nuxt-link>-->
+      <!--              </v-list-item-title>-->
+      <!--            </v-list-item>-->
+      <!--          </v-list>-->
+      <!--        </v-menu>-->
+      <!--      </li>-->
       <li class="navigation__item">
         <v-menu open-on-hover close-on-click rounded="b-xl" offset-y>
           <template #activator="{ on, attrs }">
@@ -186,44 +186,44 @@
               <v-list-item-title>
                 <a
                   target="_blank"
-                  href="https://talkearn.gitbook.io/instaservice/"
-                  >Gitbook</a
-                >
+                  href="https://talkearn.gitbook.io/instaservice/">
+                  {{ $t('gitbook') }}
+                </a>
               </v-list-item-title>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>
                 <a
                   target="_blank"
-                  href="https://talkearn.gitbook.io/instaservice/our-ecosystem/about-instaservice"
-                  >About</a
-                >
+                  href="https://talkearn.gitbook.io/instaservice/our-ecosystem/about-instaservice">
+                  {{ $t('about') }}
+                </a>
               </v-list-item-title>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>
                 <a
                   target="_blank"
-                  href="https://talkearn.gitbook.io/instaservice/our-ecosystem/how-it-works"
-                  >How it works</a
-                >
+                  href="https://talkearn.gitbook.io/instaservice/our-ecosystem/how-it-works">
+                  {{ $t('howItWorks') }}
+                </a>
               </v-list-item-title>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>
                 <a
                   target="_blank"
-                  href="https://talkearn.gitbook.io/instaservice/our-ecosystem/faq"
-                  >FAQ Deck</a
-                >
+                  href="https://talkearn.gitbook.io/instaservice/our-ecosystem/faq">
+                  {{ $t('faq') }}
+                </a>
               </v-list-item-title>
             </v-list-item>
             <v-list-item>
               <v-list-item-title>
                 <a
                   target="_blank"
-                  href="https://www.canva.com/design/DAFTCFsSz6s/3HdX7szhwt0aILtTU0C6yQ/view?utm_content=DAFTCFsSz6s&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink"
-                  >Pitch Deck
+                  href="https://www.canva.com/design/DAFTCFsSz6s/3HdX7szhwt0aILtTU0C6yQ/view?utm_content=DAFTCFsSz6s&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink">
+                  {{ $t('pitchDeck') }}
                 </a>
               </v-list-item-title>
             </v-list-item>
@@ -234,14 +234,14 @@
       <li class="navigation__item">
         <v-menu open-on-hover close-on-click rounded="b-xl" offset-y>
           <template #activator="{ on, attrs }">
-            <div stlye="z-index: 10" v-bind="attrs" v-on="on">Contacts</div>
+            <div stlye="z-index: 10" v-bind="attrs" v-on="on">{{ $t('contacts') }}</div>
           </template>
           <v-list>
             <v-list-item>
               <v-list-item-title>
                 <a
                   href="mailto:info@InstaService.app"
-                  >info@InstaService.app</a
+                >info@InstaService.app</a
                 >
               </v-list-item-title>
             </v-list-item>
@@ -249,7 +249,7 @@
               <v-list-item-title>
                 <a
                   href="tel:+40746150515"
-                  >40746150515</a
+                >40746150515</a
                 >
               </v-list-item-title>
             </v-list-item>
@@ -257,7 +257,7 @@
         </v-menu>
       </li>
     </ul>
-    <a class="navigation__item--purple" href="#"> Connect wallet </a>
+    <a class="navigation__item--purple" href="#"> {{ $t('connectWallet') }} </a>
   </nav>
 </template>
 
@@ -459,6 +459,7 @@ export default {
     width: 20px;
   }
 }
+
 .v-list-item__title a {
   color: #1f2131;
 }

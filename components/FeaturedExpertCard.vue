@@ -3,7 +3,7 @@
     <div class="all-experts__container__cards__block">
       <nuxt-link
         class="expert-link"
-        :to="{ path: `/expert/${expert.category.slug}/${expert.slug}` }"
+        :to="{ path: `/${$i18n.locale}/expert/${expert.category.slug}/${expert.slug}` }"
       >
         <div class="all-experts__container__cards__block__photo">
           <img :src="expert.avatar" alt="photo"/>
@@ -15,7 +15,7 @@
                 !expert.available,
             }"
           >
-            {{ expert.available ? 'ONLINE' : 'UNAVAILABLE' }}
+            {{ expert.available ? $t('online') : $t('unavailable') }}
           </div>
         </div>
         <div class="all-experts__container__cards__block__info">
@@ -47,45 +47,45 @@
         </div>
         <div class="all-experts__container__cards__block__more-info">
           <div v-if="expert.region"
-            class="all-experts__container__cards__block__more-info__text">
-            <span>From</span>
+               class="all-experts__container__cards__block__more-info__text">
+            <span>{{ $t('from') }}</span>
             <p>{{ expert.region }}</p>
           </div>
           <div class="all-experts__container__cards__block__more-info__text">
-            <span>Member since</span>
+            <span>{{ $t('memberSince') }}</span>
             <p>
               {{ expert.createdAt }}
             </p>
           </div>
           <div class="all-experts__container__cards__block__more-info__text"
                v-if="expert.price">
-            <span>Rate</span>
+            <span>{{ $t('rate') }}</span>
             <p>$ {{ expert.price }} /hr</p>
           </div>
           <div class="all-experts__container__cards__block__more-info__text"
                v-if="expert.language">
-            <span>Languages</span>
+            <span>{{ $t('languages') }}</span>
             <p>{{ expert.language }}</p>
           </div>
           <div class="all-experts__container__cards__block__more-info__text"
                v-if="expert.experience">
-            <span>Experience</span>
+            <span>{{ $t('experience') }}</span>
             <p>{{ expert.experience }}</p>
           </div>
           <div v-if="expert.parameters">
             <div class="all-experts__container__cards__block__more-info__text"
                  v-if="expert.parameters.duration">
-              <span>Duration</span>
+              <span>{{ $t('duration') }}</span>
               <p>{{ expert.parameters.duration }}</p>
             </div>
             <div class="all-experts__container__cards__block__more-info__text"
                  v-if="expert.parameters.consultation">
-              <span>First free consultation</span>
+              <span>{{ $t('firstFreeFonsultation') }}</span>
               <p>{{ expert.parameters.consultation }}</p>
             </div>
           </div>
           <div class="all-experts__container__cards__block__more-info__text">
-            <span>Latest Review</span>
+            <span>{{ $t('latestReview') }}</span>
             <p>{{ expert.updatedAt }}</p>
           </div>
         </div>
@@ -94,10 +94,10 @@
         <a
           v-show="expert.available"
           class="all-experts__btn online"
-          @click="call(expert)"
-        >Call
+          @click="call(expert)">
+          {{ $t('call') }}
         </a>
-        <nuxt-link to="/" class="all-experts__btn">Schedule</nuxt-link>
+        <nuxt-link :to="`/${$i18n.locale}`" class="all-experts__btn">{{ $t('schedule') }}</nuxt-link>
       </div>
     </div>
   </v-slide-item>

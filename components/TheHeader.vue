@@ -10,26 +10,28 @@
       <img
         src="/img/index/main/TET-circle-icon.svg"
         class="mobile-icon"
-        @click="$router.push('/')"
+        @click="$router.push(`/${$i18n.locale}`)"
         alt=""
       />
       <div class="header__container__logo">
-        <TheLogo />
+        <TheLogo/>
       </div>
-      <TheSearch />
-
-      <TheNavigation />
-      <img src="/img/index/main/wallet.svg" class="mobile-wallet" alt="" />
+      <TheSearch/>
+      <TheNavigation/>
+      <LanguageSwitcher/>
+      <img src="/img/index/main/wallet.svg" class="mobile-wallet" alt=""/>
     </div>
   </header>
 </template>
 
 <script>
+import {mapGetters} from "vuex";
 import TheNavigation from '~/components/TheNavigation.vue';
 import TheSearch from '~/components/TheSearch.vue';
+import LanguageSwitcher from "~/components/LanguageSwitcher";
 
 export default {
-  components: { TheNavigation, TheSearch },
+  components: {TheNavigation, TheSearch, LanguageSwitcher},
   data: () => ({
     width: null,
     yPosition: null,
@@ -43,6 +45,10 @@ export default {
     },
   },
   computed: {
+    ...mapGetters({
+      defaultLanguage: 'getDefaultLanguage',
+      languages: 'geLanguages',
+    }),
     headerStaticPosition() {
       return this.width <= 881 && this.yPosition >= 100;
     },
@@ -79,6 +85,7 @@ export default {
       width: 30px;
     }
   }
+
   &-wallet {
     display: none !important;
     @include rwdmax(575px) {
@@ -90,10 +97,11 @@ export default {
       width: 30px;
     }
     @include rwdmax(543px) {
-     // margin-right: 10px;
+      // margin-right: 10px;
     }
   }
 }
+
 .header {
   background-color: $bckgColor;
   width: 100%;

@@ -42,7 +42,7 @@ export default {
       this.myId = localStorage.getItem('userID');
     } else {
       this.myId = Math.random().toString(36).substr(2);
-      localStorage.setItem('userID', this.myId );
+      localStorage.setItem('userID', this.myId);
     }
 
     this.addClient();
@@ -53,16 +53,19 @@ export default {
 
     this.socket.on(`startCall-${this.myId}`, (msg, cb) => {
       this.startCall();
-    })
+    });
 
     this.socket.on(`declineCall-${this.myId}`, (msg, cb) => {
       this.endCall();
-    })
+    });
   },
   methods: {
     ...mapActions({
       setClient: 'client/setClient',
     }),
+    leaving() {
+      alert("Leaving...");
+    },
     async addClient() {
       const data = {
         cookie: this.myId,

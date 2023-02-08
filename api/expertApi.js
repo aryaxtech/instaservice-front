@@ -6,8 +6,8 @@ export default {
    * Fetch featured Experts
    * @returns Promise
    */
-  getFeaturedExperts: async () => {
-    const url = `/api/experts?recommended=1&active=1`;
+  getFeaturedExperts: async (languageAbbr) => {
+    const url = `/api/experts?recommended=1&active=1&lang=${languageAbbr}`;
     return await DefaultApiInstance.get(url);
   },
 
@@ -15,8 +15,8 @@ export default {
    * Fetch featured Experts
    * @returns Promise
    */
-  getOnlineExperts: async () => {
-    const url = `/api/experts?available=1&active=1`;
+  getOnlineExperts: async (languageAbbr) => {
+    const url = `/api/experts?available=1&active=1&lang=${languageAbbr}`;
     return await DefaultApiInstance.get(url);
   },
 
@@ -26,8 +26,8 @@ export default {
    * @param {String} expertSlug
    * @returns Promise
    */
-  getExpertBySlug: async (categorySlug, expertSlug) => {
-    const url = `/api/expert/slug/${expertSlug}`;
+  getExpertBySlug: async (categorySlug, expertSlug, languageAbbr) => {
+    const url = `/api/expert/slug/${expertSlug}?lang=${languageAbbr}`;
     return await DefaultApiInstance.get(url);
   },
 
@@ -37,8 +37,8 @@ export default {
    * @param {Integer} pageNum
    * @returns Promise
    */
-  getExpertsByCategory: async (categoryId, pageNum) => {
-    const url = `/api/experts?category_id=${categoryId}&active=1&page=${pageNum}`;
+  getExpertsByCategory: async (categoryId, pageNum, languageAbbr) => {
+    const url = `/api/experts?category_id=${categoryId}&active=1&page=${pageNum}&lang=${languageAbbr}`;
     return await DefaultApiInstance.get(url);
   },
 
@@ -47,8 +47,8 @@ export default {
    * @param {String} searchText
    * @returns Promise
    */
-  searchExpert: async (searchText, pageNum) => {
-    const url = `/api/experts/search/?search=${searchText}&page=${pageNum}`;
+  searchExpert: async (searchText, pageNum, languageAbbr) => {
+    const url = `/api/experts/search/?search=${searchText}&page=${pageNum}&lang=${languageAbbr}`;
     return await DefaultApiInstance.get(url);
   },
 

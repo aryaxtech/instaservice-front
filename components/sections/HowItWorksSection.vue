@@ -1,9 +1,9 @@
 <template>
   <section class="how-it-works">
     <div class="how-it-works__left">
-      <p class="how-it-works__left__little-title">How it works</p>
+      <p class="how-it-works__left__little-title">{{ $t('howItsWorks') }}</p>
       <h1 class="how-it-works__left__title">
-        Find a Therapist you love with us easily
+        {{ $t('findTherapist') }}
       </h1>
       <div class="how-it-works__left__accordion">
         <HowItWorksItem
@@ -42,12 +42,17 @@ export default {
       },
       {
         number: 3,
-        text: 'Click Call button',
+        text: '',
         bg: '#E9FFEF',
         textColor: '#3DCD65',
       },
     ],
   }),
+  mounted() {
+    this.items[0].text = this.$t('clickCall');
+    this.items[1].text = this.$t('clickCall');
+    this.items[2].text = this.$t('clickCall');
+  }
 };
 </script>
 

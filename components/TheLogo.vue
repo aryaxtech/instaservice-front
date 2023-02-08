@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link to="/" class="logo-wrapper">
+  <nuxt-link :to="`/${$i18n.locale}`" class="logo-wrapper">
     <img src="@/static/img/violet-logo.png" style="width: 210px" alt="">
   </nuxt-link>
 </template>

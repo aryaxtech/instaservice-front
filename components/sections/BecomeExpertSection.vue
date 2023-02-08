@@ -8,11 +8,11 @@
       />
       <div class="become-expert__container__text">
         <h2 class="become-expert__container__text__header">
-          <p>Are you interested in</p>
-          <p>becoming a Therapist?</p>
+          <p>{{ $t('areYouInterestedIn') }}</p>
+          <p>{{ $t('becomingTherapist') }}</p>
         </h2>
 
-        <nuxt-link to="/become" class="become-expert__container__text__btn">Join With Us</nuxt-link>
+        <nuxt-link :to="`/${$i18n.locale}/become`" class="become-expert__container__text__btn">{{ $t('joinWithUs') }}</nuxt-link>
       </div>
     </div>
   </section>

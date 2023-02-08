@@ -1,6 +1,6 @@
 <template>
   <v-slide-item>
-    <nuxt-link :to="`/category/${category.slug}`" class="crypto-topics__all__topic">
+    <nuxt-link :to="`/${$i18n.locale}/category/${category.slug}`" class="crypto-topics__all__topic">
       <img class="crypto-topics__topic__icon" :src="category.icon" alt="topic icon" />
       <p class="crypto-topics__topic__name">{{ category.name }}</p>
     </nuxt-link>
@@ -21,8 +21,6 @@ export default {
 <style lang="scss" scoped>
 .crypto-topics {
   &__all {
-    //display: flex;
-
     &__topic {
       display: flex;
       flex-direction: column;

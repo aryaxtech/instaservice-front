@@ -3,28 +3,21 @@
     <div class="benefits__left">
       <div class="benefits__left__title">
         <h1 class="benefits__left__title">
-          Benefits Of Working on
-          <span class="benefits__left__title-purple">Instaservice</span>
-          platform?
+          {{ $t('BenefitsOfWorkingOn') }}
+          <span class="benefits__left__title-purple">{{ $t('instaservice') }}</span>
+          {{ $t('platform') }}
         </h1>
       </div>
       <p class="benefits__left__text">
-        Welcome to our platform of Psychologists & Therapists available in one
-        click. You can find professional Psychotherapists, Social and Cognitive
-        Psychologists, Couple and Family Therapists, Child and Teenager
-        Psychologists, Gestalt Therapists, Educational Psychologists and
-        Experimental Therapists in one place and receive instant advice through
-        direct web calls. You get instant help from trustworthy experts and pay
-        per minute, exactly as much as you use. And, yet, You can choose to
-        remain anonymous.
+        {{ $t('benefitsText') }}
       </p>
       <div class="benefits__left__btn">
-        <a href="/src/#" class="benefits__left__btn-main">Start learning</a>
+        <a href="#" class="benefits__left__btn-main">{{ $t('startLearning') }}</a>
         <a
           href="https://talkearn.gitbook.io/talkearn/"
-          class="benefits__left__btn-secondary"
-          ><u>Read more</u></a
-        >
+          class="benefits__left__btn-secondary">
+          <u>{{ $t('readMore') }}</u>
+        </a>
       </div>
     </div>
     <div class="benefits__right">
@@ -37,7 +30,7 @@
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
       ></iframe> -->
-      <img src="/img/index/benefits/benefits.png" alt="man" />
+      <img src="/img/index/benefits/benefits.png" alt="man"/>
     </div>
   </section>
 </template>
@@ -57,6 +50,7 @@ export default {};
     text-align: center;
     flex-direction: column;
   }
+
   &__left {
     @include rwdmax(1074px) {
       width: 100%;
@@ -67,14 +61,17 @@ export default {};
     display: flex;
     flex-direction: column;
     gap: 30px;
+
     &__title {
       font-size: 40px;
       font-weight: 600;
       color: $darkColor;
     }
+
     &__title span {
       color: $purpleColor;
     }
+
     &__text {
       @include rwdmax(1074px) {
         text-align: center;
@@ -83,6 +80,7 @@ export default {};
       font-weight: 400;
       line-height: 1.3;
     }
+
     &__btn {
       margin-top: 30px;
       @include rwdmax(1074px) {
@@ -93,6 +91,7 @@ export default {};
         flex-direction: column;
         align-items: center;
       }
+
       &-main {
         color: $whiteColor;
         font-size: 18px;
@@ -101,6 +100,7 @@ export default {};
         border-radius: 16px;
         padding: 20px 43px;
       }
+
       &-secondary {
         margin-left: 50px;
         font-size: 18px;
@@ -112,6 +112,7 @@ export default {};
       }
     }
   }
+
   &__right {
     @include rwdmax(1074px) {
       margin-top: 40px;
@@ -120,6 +121,7 @@ export default {};
     @include rwdmax(528px) {
       display: none;
     }
+
     & img {
       height: 450px;
       border-radius: 90px 0 90px 0;

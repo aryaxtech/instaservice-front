@@ -1,6 +1,6 @@
 <template>
   <div class="customers">
-    <h1 class="customers__title main-header">What our Customer Says</h1>
+    <h1 class="customers__title main-header">{{ $t('whatCustomerSays') }}</h1>
     <v-carousel height="auto" hide-delimiters>
       <CustomerCard
         v-for="(customer, index) in customers"

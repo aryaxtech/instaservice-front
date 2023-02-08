@@ -1,7 +1,7 @@
 <template>
   <section class="crypto-topics">
-    <h1 class="main-header">Psychology topics </h1>
-    <BaseHeaderLine />
+    <h1 class="main-header">{{ $t('psychologyTopics') }} </h1>
+    <BaseHeaderLine/>
     <div class="crypto-topics__all">
       <v-slide-group style="height: 245px" show-arrows>
         <template #next>
@@ -63,12 +63,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import {mapGetters} from 'vuex';
 import CategoryCard from '~/components/CategoryCard.vue';
 import BaseHeaderLine from '~/components/ui/BaseHeaderLine.vue';
 
 export default {
-  components: { CategoryCard, BaseHeaderLine },
+  components: {CategoryCard, BaseHeaderLine},
   computed: {
     ...mapGetters({
       categories: 'category/getCategories',
@@ -91,6 +91,7 @@ export default {
     text-align: center;
   }
 }
+
 .slider__right-arrow {
   position: absolute;
   top: -60px;
@@ -105,6 +106,7 @@ export default {
     text-align: center;
   }
 }
+
 .crypto-topics {
   display: flex;
   flex-direction: column;

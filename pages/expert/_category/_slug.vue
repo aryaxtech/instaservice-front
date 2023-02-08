@@ -3,25 +3,24 @@
     <!-- Banner -->
     <BaseBanner :title="expert.name"
                 :sub-title="expert.profession"/>
-
     <!-- Expert Info -->
     <div class="expert">
-            <div v-if="services.length">
-              <div class="expert__cards">
-                <ExpertCardCall
-                  v-if="hashedService"
-                  :service="hashedService"
-                  :expert="expert"
-                />
-                <ExpertCardCall
-                  v-if="service.id !== hashedServiceId"
-                  v-for="(service, index) in services"
-                  :key="index"
-                  :service="service"
-                  :expert="expert"
-                />
-              </div>
-            </div>
+      <div v-if="services.length">
+        <div class="expert__cards">
+          <ExpertCardCall
+            v-if="hashedService"
+            :service="hashedService"
+            :expert="expert"
+          />
+          <ExpertCardCall
+            v-if="service.id !== hashedServiceId"
+            v-for="(service, index) in services"
+            :key="index"
+            :service="service"
+            :expert="expert"
+          />
+        </div>
+      </div>
       <div class="expert__head">
         <div class="expert__head__left">
           <img :src="expert.avatar" alt=""/>
@@ -58,7 +57,7 @@
                     offline: !expert.available,
                   }"
                 >
-                  {{ expert.available ? 'ONLINE' : 'OFFLINE' }}
+                  {{ expert.available ? $t('online') : $t('unavailable') }}
                 </p>
               </div>
             </div>
@@ -66,7 +65,7 @@
               <div
                 v-if="expert.region"
                 class="expert__head__left__info__extra__block">
-                <span class="expert__head__left__info__extra__block__label">From</span>
+                <span class="expert__head__left__info__extra__block__label">{{ $t('from') }}</span>
                 <span class="expert__head__left__info__extra__block__text">
                   {{ expert.region }}
                 </span>
@@ -74,7 +73,7 @@
               <div
                 v-if="expert.language"
                 class="expert__head__left__info__extra__block">
-                <span class="expert__head__left__info__extra__block__label">Languages</span>
+                <span class="expert__head__left__info__extra__block__label">{{ $t('languages') }}</span>
                 <span class="expert__head__left__info__extra__block__text">
                   {{ expert.language }}
                 </span>
@@ -82,7 +81,7 @@
               <div
                 v-if="expert.experience"
                 class="expert__head__left__info__extra__block">
-                <span class="expert__head__left__info__extra__block__label">Experience</span>
+                <span class="expert__head__left__info__extra__block__label">{{ $t('experience') }}</span>
                 <span class="expert__head__left__info__extra__block__text">
                   {{ expert.experience }}
                 </span>
@@ -90,7 +89,7 @@
               <div
                 v-if="expert.price"
                 class="expert__head__left__info__extra__block">
-                <span class="expert__head__left__info__extra__block__label">Price</span>
+                <span class="expert__head__left__info__extra__block__label">{{ $t('price') }}</span>
                 <span class="expert__head__left__info__extra__block__text">
                   ${{ expert.price }}
                 </span>
@@ -98,7 +97,7 @@
               <div
                 v-if="expert.parameters.duration"
                 class="expert__head__left__info__extra__block">
-                <span class="expert__head__left__info__extra__block__label">Duration of the consultation</span>
+                <span class="expert__head__left__info__extra__block__label">{{ $t('duration') }}</span>
                 <span class="expert__head__left__info__extra__block__text">
                   ${{ expert.parameters.duration }}
                 </span>
@@ -106,7 +105,7 @@
               <div
                 v-if="expert.parameters.consultation"
                 class="expert__head__left__info__extra__block">
-                <span class="expert__head__left__info__extra__block__label">The first consultation is free</span>
+                <span class="expert__head__left__info__extra__block__label">{{ $t('firstFreeConsultation') }}</span>
                 <span class="expert__head__left__info__extra__block__text">
                   ${{ expert.parameters.consultation }}
                 </span>
@@ -115,8 +114,8 @@
           </div>
         </div>
         <div class="expert__head__right">
-          <button @click="call(expert)">Call</button>
-          <button>Schedule meeting</button>
+          <button @click="call(expert)">{{ $t('call') }}</button>
+          <button>{{ $t('schedule') }}</button>
         </div>
       </div>
       <div class="expert__video text-center" v-if="expert.video">
@@ -124,14 +123,13 @@
                width="340"
                controls></video>
       </div>
-
-      <div class="expert__text" v-html="expert.description "></div>
-
+      <div class="expert__text" v-html="expert.description"></div>
     </div>
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 import expertApi from '~/api/expertApi.js';
 import serviceApi from "~/api/serviceApi";
 
@@ -143,12 +141,14 @@ import BaseHeaderLine from '~/components/ui/BaseHeaderLine.vue';
 export default {
   components: {BaseBanner, CategoryTagItem, ExpertCardCall, BaseHeaderLine},
   layout: () => 'emptyhero',
-  async asyncData({route, params, error}) {
+  async asyncData({store, route, params, error}) {
     const hash = route.hash.substring(1);
+    const defaultLanguage = store.getters['language/getDefaultLanguage'];
+
     let hashedService = null;
     if (hash) {
       try {
-        const serviceResult = await serviceApi.getServiceByHash(hash);
+        const serviceResult = await serviceApi.getServiceByHash(hash, defaultLanguage);
         hashedService = serviceResult.data;
       } catch (e) {
         console.log(e)
@@ -156,8 +156,8 @@ export default {
     }
     const hashedServiceId = hashedService ? hashedService.id : 0;
     try {
-      const expertResult = await expertApi.getExpertBySlug(params.category, params.slug)
-      const servicesResult = await serviceApi.getExpertServices(expertResult.data.id);
+      const expertResult = await expertApi.getExpertBySlug(params.category, params.slug, defaultLanguage);
+      const servicesResult = await serviceApi.getExpertServices(expertResult.data.id, defaultLanguage);
       return {expert: expertResult.data, services: servicesResult.data, hashedService, hashedServiceId};
     } catch (e) {
       error({statusCode: 404, message: e.response.data.errors});
@@ -166,6 +166,9 @@ export default {
   ssr: true,
   data: () => {
     return {
+      expert: {},
+      services: [],
+      hashedService: null,
       tags: [
         'Blockchains',
         'Wallets',
@@ -176,10 +179,38 @@ export default {
       title: 'Crypto Startup Advisor',
     };
   },
+  watch: {
+    async defaultLanguage() {
+      const hash = this.$route.hash.substring(1);
+      let hashedService = null;
+      if (hash) {
+        try {
+          const serviceResult = await serviceApi.getServiceByHash(hash, this.defaultLanguage);
+          this.services = serviceResult.data;
+        } catch (e) {
+          console.error(e)
+        }
+      }
+      const hashedServiceId = hashedService ? hashedService.id : 0;
+      try {
+        const expertResult = await expertApi.getExpertBySlug(this.$route.params.category, this.$route.params.slug, this.defaultLanguage);
+        const servicesResult = await serviceApi.getExpertServices(expertResult.data.id, this.defaultLanguage);
+        this.expert = expertResult.data;
+        this.services = servicesResult.data;
+        return {expert: expertResult.data, services: servicesResult.data, hashedService, hashedServiceId};
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  },
+  computed: {
+    ...mapGetters({
+      defaultLanguage: 'language/getDefaultLanguage',
+    }),
+  },
   mounted() {
     if (this.$route.hash) {
       const hash = this.$route.hash;
-
     }
   },
   methods: {
@@ -199,8 +230,7 @@ export default {
   @include rwdmax(730px) {
     width: calc(100% - 40px);
   }
-  margin: 0 auto;
-  margin-top: -20px;
+  margin: -20px auto 0;
   padding: 40px;
   position: relative;
   background: #ffffff;

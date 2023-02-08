@@ -1,54 +1,23 @@
 <template>
   <div class="search-page">
-    <h1 class="main-header">All Psychologists by Your search criteria</h1>
+    <h1 class="main-header">{{ $t('searchPsychologists') }}</h1>
     <div class="local-header-line">
-      <BaseHeaderLine />
+      <BaseHeaderLine/>
     </div>
     <div class="all-experts">
       <div class="all-experts__container">
         <div class="all-experts__container__head">
           <p v-if="searchValue" class="all-experts__container__head__left">
-            Results for “{{ searchValue }}”
+            {{ $t('resultsFor') }} “{{ searchValue }}”
           </p>
           <span
             v-else
             class="all-experts__container__head__left"
             style="margin: 0 auto !important"
           >
-            You need to enter some search query 😒
+            {{ $t('searchEnterData') }} 😒
           </span>
-          <div class="all-experts__container__head__right">
-            <!-- <div class="all-experts__container__head__right__online">
-              <p>Online</p>
-              <label
-                class="all-experts__container__head__right__online__switch"
-              >
-                <input type="checkbox" />
-                <span
-                  class="all-experts__container__head__right__online__slider round"
-                ></span>
-              </label>
-            </div>-->
-            <!--<div class="all-experts__container__head__right__category">
-              <select
-                class="all-experts__container__head__right__category__select"
-              >
-                <option value="">Category</option>
-                <option value="1">Blockchains</option>
-                <option value="2">Wallets</option>
-                <option value="3">Money tranfers</option>
-                <option value="4">Investments</option>
-              </select>
-            </div>-->
-            <!--<div class="all-experts__container__head__right__filter">
-              <a
-                class="all-experts__container__head__right__filter__link"
-                href="/"
-              >
-                <img src="/img/cat-one/all-experts/filter.svg" alt="" />
-              </a>
-            </div>-->
-          </div>
+          <div class="all-experts__container__head__right"></div>
         </div>
         <div v-if="experts.length !== 0" class="all-experts__container__cards">
           <ExpertCardAbout
@@ -61,8 +30,7 @@
           v-if="experts.length === 0 && searchValue"
           style="display: flex; margin-top: 20px"
         >
-          Ups, there are not experts matching with Your search request. Please
-          try again :(
+          {{ $t('searchNotFound') }}
         </h1>
         <div id="intersectio-observer" ref="intersection"></div>
       </div>
@@ -71,25 +39,25 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 import ExpertCardAbout from '~/components/ExpertCardAbout.vue';
 import BaseHeaderLine from '~/components/ui/BaseHeaderLine.vue';
 
 export default {
-  components: { ExpertCardAbout, BaseHeaderLine },
+  components: {ExpertCardAbout, BaseHeaderLine},
   layout: () => 'emptyhero',
   data: () => {
     return {
       observer: null,
     };
   },
-  async fetch({ route, store, error }) {
+  async fetch({route, store, error}) {
     await store
       .dispatch('expert/fetchSearchExperts', {
         searchText: route.query.find,
       })
       .catch((err) => {
-        error({ statusCode: 404, message: err.response.data.errors.message });
+        error({statusCode: 404, message: err.response.data.errors.message});
       });
     store.dispatch('search/setSearchValue', {
       searchValue: route.query.find,
@@ -138,9 +106,11 @@ export default {
   justify-content: center;
   padding-top: 30px;
 }
+
 .search-page {
   padding-top: 34px;
 }
+
 .all-experts {
   &__container {
     width: 85%;

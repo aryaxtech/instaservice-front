@@ -1,6 +1,5 @@
 <template>
   <div class="expert__cards__block">
-    <!--    <img :src="service.image" class="expert__cards__block__img" alt="photo" />-->
     <video :src="service.video"
            v-if="service.video"
            width="100%"
@@ -36,17 +35,15 @@
       <div class="expert__cards__block__text__call">
         <div class="expert__cards__block__text__call__text">
           <span class="expert__cards__block__text__call__price">${{ service.price }}</span>
-          <span class="expert__cards__block__text__call__minute"
-          >per minute</span
-          >
+          <span class="expert__cards__block__text__call__minute">{{ $t('perMinute') }}</span>
         </div>
         <div class="expert__cards__block__text__btns">
-          <a href="#" class="expert__cards__block__text__call__btn" @click="call(expert)">Call</a>
-          <a href="/" class="expert__cards__block__text__call__btn">Schedule</a>
+          <a href="#" class="expert__cards__block__text__call__btn" @click="call(expert)">{{ $t('call') }}</a>
+          <a href="/" class="expert__cards__block__text__call__btn">{{ $t('schedule') }}</a>
         </div>
         <div class="expert__cards__block__text__link">
-          <nuxt-link :to="`/collections/${service.collection.slug}`">
-            Vezi alti psihologi care consulta pe {{ service.collection.name }}
+          <nuxt-link :to="`/${$i18n.locale}/collections/${service.collection.slug}`">
+            {{ $t('viewAnotherExperts') }} {{ service.collection.name }}
           </nuxt-link>
         </div>
       </div>
@@ -77,8 +74,7 @@ export default {
 <style lang="scss" scoped>
 .expert {
   width: 70%;
-  margin: 0 auto;
-  margin-top: -20px;
+  margin: -20px auto 0;
   padding: 40px;
   position: relative;
   background: #ffffff;
@@ -239,6 +235,7 @@ export default {
       }
     }
   }
+
   video {
     border-radius: 15px;
     box-shadow: 0px 11px 39px rgba(0, 0, 0, 0.2);

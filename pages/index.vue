@@ -2,28 +2,29 @@
   <div>
     <!-- ~ Landing Page ~ -->
     <!-- Crypto Topics Section -->
-    <CategorySection />
+    <CategorySection/>
 
     <!-- Experts Section -->
-    <OnlineExpertsSection id="fe-1" title="Online Psychologists available now" />
+    <OnlineExpertsSection id="fe-1" :title="$t('onlinePsychologists')"/>
 
-    <FeaturedExpertsSection id="fe-2" title="Recommended Therapists" />
+    <FeaturedExpertsSection id="fe-2" :title="$t('recommendedTherapists')"/>
 
     <!-- How it Works Section -->
-    <HowItWorksSection />
+    <HowItWorksSection/>
 
     <!-- Become Expert Section -->
-    <BecomeExpertSection />
+    <BecomeExpertSection/>
 
     <!-- Benefits Section -->
-    <BenefitsWorkSection />
+    <BenefitsWorkSection/>
 
     <!-- Customers Section -->
-    <CustomerSection />
+    <CustomerSection/>
   </div>
 </template>
 
 <script>
+import {mapGetters, mapActions} from "vuex";
 import BecomeExpertSection from '~/components/sections/BecomeExpertSection.vue';
 import BenefitsWorkSection from '~/components/sections/BenefitsWorkSection.vue';
 import CategorySection from '~/components/sections/CategorySection.vue';
@@ -43,7 +44,19 @@ export default {
     CustomerSection,
     OnlineExpertsSection,
   },
-  fetch: async ({ store }) => {
+  watch: {
+    async defaultLanguage() {
+      await this.fetchCategories();
+      await this.fetchFeaturedExperts();
+      await this.fetchOnlineExperts();
+    }
+  },
+  computed: {
+    ...mapGetters({
+      defaultLanguage: 'language/getDefaultLanguage',
+    }),
+  },
+  fetch: async ({store}) => {
     if (store.getters['category/getCategories'].length === 0) {
       await store.dispatch('category/fetchCategories');
     }
@@ -54,6 +67,13 @@ export default {
       await store.dispatch('expert/fetchOnlineExperts');
     }
   },
+  methods: {
+    ...mapActions({
+      fetchCategories: 'category/fetchCategories',
+      fetchFeaturedExperts: 'expert/fetchFeaturedExperts',
+      fetchOnlineExperts: 'expert/fetchOnlineExperts',
+    }),
+  }
 };
 </script>
 

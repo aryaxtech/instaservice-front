@@ -2,67 +2,68 @@
   <v-footer class="footer">
     <div class="footer__container">
       <div class="footer__container__left">
-        <img src="@/static/img/white-logo.png" style="width: 300px" alt="" />
+        <img src="@/static/img/white-logo.png" style="width: 300px" alt=""/>
 
         <div class="footer__container__right">
           <div class="footer__container__right__block">
-            <p class="footer__container__right__block__name">Experts</p>
-            <nuxt-link to="/" class="footer__container__right__block__link"
-              >Home Page</nuxt-link
-            >
+            <p class="footer__container__right__block__name">{{ $t('experts') }}</p>
+            <nuxt-link :to="`/${$i18n.locale}`" class="footer__container__right__block__link">
+              {{ $t('homePage') }}
+            </nuxt-link>
             <nuxt-link
-              to="/category"
-              class="footer__container__right__block__link"
-              >Experts By Category</nuxt-link
-            >
+              :to="`/${$i18n.locale}/category`"
+              class="footer__container__right__block__link">
+              {{ $t('expertsByCategory') }}
+            </nuxt-link>
           </div>
+          <!--          <div class="footer__container__right__block">-->
+          <!--            <p class="footer__container__right__block__name">-->
+          <!--              Become an expert-->
+          <!--            </p>-->
+          <!--            <nuxt-link-->
+          <!--              to="/become"-->
+          <!--              class="footer__container__right__block__link"-->
+          <!--            >How to become an expert-->
+          <!--            </nuxt-link-->
+          <!--            >-->
+          <!--            <nuxt-link-->
+          <!--              to="/become/expert"-->
+          <!--              class="footer__container__right__block__link"-->
+          <!--            >Fill out the form-->
+          <!--            </nuxt-link-->
+          <!--            >-->
+          <!--          </div>-->
           <div class="footer__container__right__block">
-            <p class="footer__container__right__block__name">
-              Become an expert
-            </p>
-            <nuxt-link
-              to="/become"
-              class="footer__container__right__block__link"
-              >How to become an expert</nuxt-link
-            >
-            <nuxt-link
-              to="/become/expert"
-              class="footer__container__right__block__link"
-              >Fill out the form</nuxt-link
-            >
-          </div>
-          <div class="footer__container__right__block">
-            <p class="footer__container__right__block__name">Docs</p>
+            <p class="footer__container__right__block__name">{{ $t('docs') }}</p>
             <a
               target="_blank"
               href="https://talkearn.gitbook.io/instaservice/"
-              class="footer__container__right__block__link"
-              >Gitbook</a
-            >
+              class="footer__container__right__block__link">
+              {{ $t('gitbook') }}
+            </a>
             <a
               target="_blank"
               href="https://talkearn.gitbook.io/instaservice/our-ecosystem/about-instaservice"
-              class="footer__container__right__block__link"
-            >
-              About
+              class="footer__container__right__block__link">
+              {{ $t('about') }}
             </a>
             <a
               target="_blank"
               class="footer__container__right__block__link"
-              href="https://talkearn.gitbook.io/instaservice/our-ecosystem/how-it-works"
-              >How it works</a
-            >
+              href="https://talkearn.gitbook.io/instaservice/our-ecosystem/how-it-works">
+              {{ $t('howItWork') }}
+            </a>
             <a
               target="_blank"
               class="footer__container__right__block__link"
-              href="https://talkearn.gitbook.io/instaservice/our-ecosystem/faq"
-              >FAQ</a
-            >
+              href="https://talkearn.gitbook.io/instaservice/our-ecosystem/faq">
+              {{ $t('faq') }}
+            </a>
           </div>
           <div class="footer__container__right__block footer__adress">
-            <p class="footer__container__right__block__name">Contacts</p>
+            <p class="footer__container__right__block__name">{{ $t('contacts') }}</p>
             <div class="footer__container__right__block__link__icon">
-              <img src="/img/index/footer/map.svg" alt="" />
+              <img src="/img/index/footer/map.svg" alt=""/>
               <a
                 href="mailto:info@talkearn.app"
                 class="footer__container__right__block__link"
@@ -71,7 +72,7 @@
               </a>
             </div>
             <div class="footer__container__right__block__link__icon">
-              <img src="/img/index/footer/phone.svg" alt="" />
+              <img src="/img/index/footer/phone.svg" alt=""/>
               <a
                 href="tel:40746150515"
                 class="footer__container__right__block__link"
@@ -120,7 +121,7 @@
           </a>
         </div>
         <p class="footer__container--text">
-          INSTASERVICE connects You with a reliable psychologist instantly
+          {{ $t('footerText') }}
         </p>
       </div>
     </div>

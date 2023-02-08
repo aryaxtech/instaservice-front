@@ -1,24 +1,23 @@
 <template>
   <!-- Featured Experts -->
   <v-container fluid ma-0 pa-0>
-    <!-- <BaseBanner :title="`Experts in ${currentCategoryName}`" /> -->
-    <BaseBanner :title="``" />
+    <BaseBanner :title="``"/>
 
-    <FeaturedExpertsSection title="Online Psychologists available now" />
+    <FeaturedExpertsSection title="Online Psychologists available now"/>
 
     <!-- All Expert Section -->
-    <h1 class="main-header">All Psychologists in this category</h1>
+    <h1 class="main-header">{{ $t('allPsychologists') }}</h1>
     <div class="local-header-line">
-      <BaseHeaderLine />
+      <BaseHeaderLine/>
     </div>
     <div class="all-experts">
       <div class="all-experts__container">
         <div class="all-experts__container__head">
           <p v-if="experts.length" class="all-experts__container__head__left">
-            Showing {{ experts.length }} experts
+            {{ $t('showing') }} {{ experts.length }} {{ $t('experts') }}
           </p>
           <p v-else class="all-experts__container__head__left">
-            Experts not Found
+            {{ $t('expertsNotFound') }}
           </p>
           <div class="all-experts__container__head__right">
             <!-- <div class="all-experts__container__head__right__online">
@@ -51,7 +50,7 @@
             </div>
             <div class="all-experts__container__head__right__filter">
               <a class="all-experts__container__head__right__filter__link">
-                <img src="/img/cat-one/all-experts/filter.svg" alt="" />
+                <img src="/img/cat-one/all-experts/filter.svg" alt=""/>
               </a>
             </div>
           </div>
@@ -71,7 +70,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 import categoryApi from '~/api/categoryApi.js';
 import ExpertCardAbout from '~/components/ExpertCardAbout.vue';
 import FeaturedExpertsSection from '~/components/sections/FeaturedExpertsSection.vue';
@@ -92,7 +91,7 @@ export default {
       currentCategory: this.$route.params.slug,
     };
   },
-  async fetch({ params, store, error }) {
+  async fetch({params, store, error}) {
     await categoryApi
       .getCategoryBySlug(params.slug)
       .then(async (response) => {
@@ -104,16 +103,38 @@ export default {
           currentCategory: response.data.name,
         });
       })
-      .catch(({ response }) => {
-        error({ statusCode: 404, message: response.data.errors });
+      .catch(({response}) => {
+        error({statusCode: 404, message: response.data.errors});
       });
     if (store.getters['category/getCategories'].length === 0) {
       await store.dispatch('category/fetchCategories');
     }
     await store.dispatch('expert/fetchFeaturedExperts');
   },
+  watch: {
+    async defaultLanguage() {
+      await categoryApi
+        .getCategoryBySlug(this.$route.params.slug)
+        .then(async (response) => {
+          const categoryId = response.data.id;
+          await this.fetchExpertsByCategory({
+            categoryId,
+            page: 1,
+          });
+          await this.setCurrentCategory({
+            currentCategory: response.data.name,
+          });
+        })
+        .catch(({response}) => {
+          error({statusCode: 404, message: response.data.errors});
+        });
+      await this.fetchCategories();
+      await this.fetchFeaturedExperts();
+    }
+  },
   computed: {
     ...mapGetters({
+      defaultLanguage: 'language/getDefaultLanguage',
       experts: 'expert/getExperts',
       expertPage: 'expert/getPage',
       categories: 'category/getCategories',
@@ -142,6 +163,10 @@ export default {
   methods: {
     ...mapActions({
       getMoreExperts: 'expert/fetchMoreExpertsByCategory',
+      fetchExpertsByCategory: 'expert/fetchExpertsByCategory',
+      setCurrentCategory: 'category/setCurrentCategory',
+      fetchCategories: 'category/fetchCategories',
+      fetchFeaturedExperts: 'expert/fetchFeaturedExperts',
     }),
     changeCategory() {
       this.$router.push(`/category/${this.currentCategory}`);
@@ -156,6 +181,7 @@ export default {
   justify-content: center;
   padding-top: 50px;
 }
+
 .all-experts {
   &__container {
     width: 70%;
