@@ -47,7 +47,12 @@ export default {
     font-size: 17px;
     padding: 8px;
     border-radius: 50%;
+    @include rwdmax(850px) {
+      margin-left: 2px;
+      padding: 5px;
+    }
   }
+
 
   a:hover {
     background-color: #FFF;
@@ -55,6 +60,9 @@ export default {
 
   .active {
     background-color: #FFF;
+    @include rwdmax(850px) {
+      background-color: #f8f9fd;
+    }
   }
 }
 </style>

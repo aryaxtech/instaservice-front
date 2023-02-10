@@ -19,7 +19,7 @@
       <TheSearch/>
       <TheNavigation/>
       <LanguageSwitcher/>
-      <img src="/img/index/main/wallet.svg" class="mobile-wallet" alt=""/>
+<!--      <img src="/img/index/main/wallet.svg" class="mobile-wallet" alt=""/>-->
     </div>
   </header>
 </template>
