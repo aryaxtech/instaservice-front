@@ -10,8 +10,8 @@ export default {
     port: 3021,
   },
   head: {
-    titleTemplate: '%s - instaservice-app',
-    title: 'instaservice-app',
+    titleTemplate: '%s',
+    title: 'INSTANTEXPERT.ONLINE',
     htmlAttrs: {
       lang: 'en',
     },
@@ -21,7 +21,7 @@ export default {
       {hid: 'description', name: 'description', content: ''},
       {name: 'format-detection', content: 'telephone=no'},
     ],
-    link: [{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}],
+    link: [{rel: 'icon', type: 'image/x-icon', href: '/favicon.svg'}],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
