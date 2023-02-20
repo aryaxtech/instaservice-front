@@ -1,14 +1,15 @@
 <template>
   <v-app>
     <v-container fluid class="bckg">
-      <TheHeader />
+      <TheHeader/>
     </v-container>
-    <TheMainHero />
+    <TheMainHero/>
     <v-main>
-      <Nuxt />
+      <Nuxt/>
     </v-main>
-    <TheFooter />
-    <app-call />
+    <TheFooter/>
+    <app-call/>
+    <schedule/>
   </v-app>
 </template>
 
@@ -16,11 +17,12 @@
 import TheFooter from '~/components/TheFooter.vue';
 import TheHeader from '~/components/TheHeader.vue';
 import TheMainHero from '~/components/TheMainHero.vue';
-import AppCall from "~/components/calls/AppCall";
+import AppCall from '~/components/calls/AppCall';
+import Schedule from '~/components/schedule/Schedule';
 
 export default {
   name: 'DefaultLayout',
-  components: { TheHeader, TheMainHero, TheFooter, AppCall },
+  components: {TheHeader, TheMainHero, TheFooter, AppCall, Schedule},
   data() {
     return {
       clipped: false,
@@ -55,9 +57,11 @@ export default {
   text-align: center;
   color: $darkColor;
 }
+
 .bckg {
   background-color: $bckgColor;
 }
+
 .bckg {
   @include rwdmax(881px) {
     padding: 0 !important;

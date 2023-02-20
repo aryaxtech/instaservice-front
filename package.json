@@ -15,6 +15,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/i18n": "^7.3.1",
+    "@nuxtjs/moment": "^1.6.1",
     "core-js": "^3.25.3",
     "lodash.debounce": "^4.0.8",
     "nuxt": "^2.15.8",
@@ -22,6 +23,7 @@
     "sass": "^1.56.1",
     "socket.io-client": "^4.5.4",
     "twilio-video": "^2.25.0",
+    "v-calendar": "^2.4.1",
     "vue": "^2.7.10",
     "vue-server-renderer": "^2.7.10",
     "vue-socket.io": "^3.0.10",

@@ -30,6 +30,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '@/plugins/socket', ssr: false },
+    { src: '@plugins/v-calendar.js', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -43,6 +44,7 @@ export default {
     // '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/moment',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -52,6 +54,10 @@ export default {
     'nuxt-socket-io',
     '@nuxtjs/i18n',
   ],
+
+  // moment: {
+  //   locales: ['ru', 'en'],
+  // },
 
   i18n: {
     strategy: 'prefix',

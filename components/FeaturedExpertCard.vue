@@ -97,7 +97,11 @@
           @click="call(expert)">
           {{ $t('call') }}
         </a>
-        <nuxt-link :to="`/${$i18n.locale}`" class="all-experts__btn">{{ $t('schedule') }}</nuxt-link>
+        <a @click="showSchedule(expert)"
+           class="all-experts__btn">
+          {{ $t('schedule') }}
+        </a>
+        <!--        <nuxt-link :to="`/${$i18n.locale}`" class="all-experts__btn">{{ $t('schedule') }}</nuxt-link>-->
       </div>
     </div>
   </v-slide-item>
@@ -114,6 +118,9 @@ export default {
   methods: {
     call(expert) {
       this.$nuxt.$emit('call', expert);
+    },
+    showSchedule(expert) {
+      this.$nuxt.$emit('showSchedule', expert);
     }
   }
 };
