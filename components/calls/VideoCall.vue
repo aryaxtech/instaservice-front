@@ -65,6 +65,7 @@ export default {
     });
 
     this.socket.on(`startCall-${this.myId}`, (data) => {
+      console.log('STARTCALL');
       const dataObject = JSON.parse(data);
       this.room = dataObject.room;
       this.startCall();

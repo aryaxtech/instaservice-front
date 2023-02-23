@@ -3,7 +3,8 @@ import VueSocketIO from 'vue-socket.io'
 import { io } from "socket.io-client";
 
 const options = {};
-const socketURL = 'https://core.instantexpert.online';
+// const socketURL = 'https://core.instantexpert.online';
+const socketURL = 'http://127.0.0.1:5000';
 
 export default function ({store}) {
   Vue.use(

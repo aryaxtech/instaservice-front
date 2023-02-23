@@ -24,16 +24,15 @@ export default {
     }
   },
   mounted() {
-    this.setDefaultLanguage(this.$i18n.defaultLocale);
+    this.setDefaultLanguage(this.$i18n.locale);
   },
   methods: {
     ...mapActions({
       setDefaultLanguage: 'language/setDefaultLanguage',
     }),
-    changeLocale(locale) {
-      this.$i18n.defaultLocale = locale;
-      this.$i18n.setLocale(locale)
-      this.setDefaultLanguage(this.$i18n.defaultLocale);
+    async changeLocale(locale) {
+      await this.$i18n.setLocale(locale);
+      await this.setDefaultLanguage(this.$i18n.locale);
     }
   }
 }

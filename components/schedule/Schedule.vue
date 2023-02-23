@@ -5,14 +5,19 @@
         <div class="schedule-close" @click.stop="hideScheduleSection">
           <v-icon>mdi-close</v-icon>
         </div>
-        <div class="schedule-section-heading">
-          Schedule for {{ expert.name }}
-        </div>
+        <v-row class="schedule-section-heading" justify="center" align="center">
+          <v-col cols="3" class="text-right">
+            <img :src="expert.avatar" height="50">
+          </v-col>
+          <v-col cols="9">
+            Schedule for {{ expert.name }}
+          </v-col>
+        </v-row>
 
         <div class="schedule-section-actions" v-show="showCalendar">
           <v-row class="calendar-area">
             <no-ssr>
-              <v-date-picker
+              <v-calendar
                 @dayclick="onDayClick"
                 is-expanded
                 v-model="myDate"
@@ -28,7 +33,7 @@
         </div>
 
         <BookAppointment v-if="!showCalendar"
-        :appointmentData="appointmentData"/>
+                         :appointmentData="appointmentData"/>
 
       </div>
     </div>
@@ -64,6 +69,11 @@ export default {
       }
     }
   },
+  watch: {
+    showCalendar() {
+      this.onDayClick(this.selectedDay);
+    },
+  },
   computed: {
     ...mapGetters({
       defaultLanguage: 'language/getDefaultLanguage',
@@ -78,10 +88,13 @@ export default {
       this.showCalendar = true;
     });
     this.$nuxt.$on('showSchedule', async (expert) => {
+      this.selectedDay = new Date();
       this.showCalendar = true;
       if (!this.maxDate) {
-        this.maxDate = this.minDate.setDate(this.minDate.getDate() + 31);
+        this.maxDate = new Date(this.minDate.setDate(this.minDate.getDate() + 36));
       }
+      this.minDate = new Date();
+
       this.expert = expert;
       await this.init();
       this.$el.querySelector('.schedule-area').classList.add('schedule-area-display');
@@ -128,7 +141,7 @@ export default {
         },
         dates: scheduleDates,
       });
-      await this.onDayClick(this.formatDate(this.selectedDay));
+      await this.onDayClick(this.selectedDay);
     },
     hideScheduleSection() {
       this.$el.querySelector('.schedule-section').classList.remove('schedule-section-display');
@@ -137,13 +150,17 @@ export default {
       }, 200);
     },
     async onDayClick(day) {
+      if (day.hasOwnProperty('date')) {
+        day = day.date
+      }
+      this.attributes[0].dates = day;
       const scheduleSimpleDates = this.schedule.map(schedule => {
         return schedule.date;
-      })
+      });
+      this.selectedDay = day;
       this.appointments = [];
-      this.selectedDay = this.formatDate(day.date);
-      if (scheduleSimpleDates.includes(this.formatDate(day.date))) {
-        await this.fetchAppointments(this.formatDate(day.date))
+      if (scheduleSimpleDates.includes(this.formatDate(day))) {
+        await this.fetchAppointments(this.formatDate(day));
       }
     },
     async fetchAppointments(day) {
@@ -151,7 +168,6 @@ export default {
         try {
           const result = await scheduleApi.getAppointments(this.expert.id, day);
           this.appointments = result.data.data;
-          // this.chooseSchedule = result.data.schedule;
         } catch (e) {
           console.error(e);
         }
@@ -168,7 +184,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .schedule-area {
   position: fixed;
   width: 100%;
@@ -209,8 +225,7 @@ export default {
     }
 
     .schedule-section-heading {
-      padding: 15px;
-      text-align: center;
+      padding-top: 10px;
       font-size: 20px;
       box-shadow: 0px 5px 10px rgba(31, 31, 51, 0.1);
     }
@@ -222,8 +237,6 @@ export default {
       .calendar-area {
         margin-bottom: 20px;
       }
-
-
     }
   }
 
@@ -234,5 +247,14 @@ export default {
 
 .schedule-area-display {
   left: 0;
+}
+
+.date-circle {
+  background: #FFF !important;
+  opacity: 0.3 !important;
+}
+
+.date-text {
+  color: #cbd5e0 !important;
 }
 </style>

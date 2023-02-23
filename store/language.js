@@ -1,5 +1,3 @@
-import languageApi from "~/api/languageApi";
-
 export const state = () => ({
   defaultLanguage: 'ro',
 });

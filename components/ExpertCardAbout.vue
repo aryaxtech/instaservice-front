@@ -86,10 +86,12 @@
       <a v-if="expert.available"
          href="#"
          class="all-experts__btn online"
-         @click="call(expert)">
+         @click.prevent="call(expert)">
         {{ $t('call') }}
       </a>
-      <a href="#" class="all-experts__btn">{{ $t('schedule') }}</a>
+      <a @click="showSchedule(expert)"
+         class="all-experts__btn">{{ $t('schedule') }}
+      </a>
     </div>
   </div>
 </template>
@@ -105,6 +107,9 @@ export default {
   methods: {
     call(expert) {
       this.$nuxt.$emit('call', expert);
+    },
+    showSchedule(expert) {
+      this.$nuxt.$emit('showSchedule', expert);
     }
   }
 };

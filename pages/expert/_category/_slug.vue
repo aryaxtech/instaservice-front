@@ -115,7 +115,7 @@
         </div>
         <div class="expert__head__right">
           <button @click="call(expert)">{{ $t('call') }}</button>
-          <button>{{ $t('schedule') }}</button>
+          <button @click="showSchedule(expert)">{{ $t('schedule') }}</button>
         </div>
       </div>
       <div class="expert__video text-center" v-if="expert.video">
@@ -220,6 +220,9 @@ export default {
     call(expert) {
       this.$nuxt.$emit('call', expert);
     },
+    showSchedule(expert) {
+      this.$nuxt.$emit('showSchedule', expert);
+    }
   },
 };
 </script>

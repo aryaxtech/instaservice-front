@@ -9,7 +9,8 @@
     </v-row>
     <v-row class="appointments-list" v-if="appointments.length" justify="center">
       <v-col class="appointments-item"
-             xs="6"
+             sm="6"
+             cols="6"
              v-for="(appointment, key) in appointments"
              :key="key">
         <div class="appointments-item-inside" @click="bookAppointment(appointment)">

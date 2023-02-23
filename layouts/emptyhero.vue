@@ -1,13 +1,14 @@
 <template>
   <v-app>
     <div class="bckg">
-      <TheHeader />
+      <TheHeader/>
     </div>
     <v-main>
-      <Nuxt />
+      <Nuxt/>
     </v-main>
-    <TheFooter />
-    <app-call />
+    <TheFooter/>
+    <app-call/>
+    <schedule/>
   </v-app>
 </template>
 
@@ -15,9 +16,10 @@
 import TheFooter from '~/components/TheFooter.vue';
 import TheHeader from '~/components/TheHeader.vue';
 import AppCall from "~/components/calls/AppCall";
+import Schedule from '~/components/schedule/Schedule';
 
 export default {
-  components: { TheHeader, TheFooter, AppCall },
+  components: {TheHeader, TheFooter, AppCall, Schedule},
   data() {
     return {
       clipped: false,
@@ -45,6 +47,7 @@ export default {
 
 <style lang="scss">
 @import '@/assets/nullstyle.scss';
+
 .bckg {
   background-color: $bckgColor;
 }

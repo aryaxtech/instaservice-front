@@ -10,6 +10,7 @@
     <TheSubscribe />
     <TheFooter />
     <app-call />
+    <schedule />
   </v-app>
 </template>
 
@@ -19,9 +20,10 @@ import TheHeader from '~/components/TheHeader.vue';
 import TheSecondaryHero from '~/components/TheSecondaryHero.vue';
 import TheSubscribe from '~/components/TheSubscribe.vue';
 import AppCall from "~/components/calls/AppCall";
+import Schedule from "~/components/schedule/Schedule";
 
 export default {
-  components: { TheSecondaryHero, TheHeader, TheSubscribe, TheFooter, AppCall },
+  components: { TheSecondaryHero, TheHeader, TheSubscribe, TheFooter, AppCall, Schedule },
   data() {
     return {
       clipped: false,

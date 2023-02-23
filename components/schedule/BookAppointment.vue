@@ -1,57 +1,76 @@
 <template>
   <div class="schedule-book-form">
+    <div v-if="!successAppointment">
+      <v-row justify="center" align="center" class="book-form-heading">
+        <v-col sm="1" cols="1" @click="goBack">
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-col>
+        <v-col sm="11" cols="11">
+          <h5 class="text-center">
+            Fill the fields to complete the appointment.
+          </h5>
+        </v-col>
+      </v-row>
 
-    <v-row justify="center" align="center" class="book-form-heading">
-      <v-col sm="1" @click="goBack">
-        <v-icon>mdi-arrow-left</v-icon>
-      </v-col>
-      <v-col sm="11">
-        <h5 class="text-center">
-          {{ appointmentData.dayFormat }},
-          {{ appointmentData.timeFormat }}
-        </h5>
-      </v-col>
-    </v-row>
+      <div class="loader-wrapper" v-if="loader">
+        <span class="loader"></span>
+      </div>
 
-    <v-form @submit.prevent="bookAppointment">
-      <v-text-field
-        label="Nume"
-        type="text"
-        v-model="form.name"
-        :rules="rules.nameRules"
-        outlined
-      ></v-text-field>
-      <v-text-field
-        label="Email"
-        type="email"
-        v-model="form.email"
-        :rules="rules.emailRules"
-        outlined
-      ></v-text-field>
-      <v-text-field
-        label="Phone"
-        type="tel"
-        v-model="form.phone"
-        :rules="rules.phoneRules"
-        outlined
-      ></v-text-field>
-      <v-select
-        v-model="form.language"
-        :items="languages"
-        :rules="rules.languageRules"
-        label="Languages"
-        item-text="name"
-        item-value="abbr"
-        outlined
-      ></v-select>
-
-      <v-btn type="submit" block class="mt-2">Submit</v-btn>
-
-    </v-form>
+      <v-form @submit.prevent="bookAppointment" ref="form" v-else>
+        <v-text-field
+          label="Data programarii"
+          type="text"
+          :value="appointmentData.dayFormat +', '+ appointmentData.timeFormat"
+          outlined
+          readonly="readonly"
+        ></v-text-field>
+        <v-text-field
+          label="Nume"
+          type="text"
+          v-model="form.name"
+          :rules="rules.nameRules"
+          outlined
+        ></v-text-field>
+        <v-text-field
+          label="Email"
+          type="email"
+          v-model="form.email"
+          :rules="rules.emailRules"
+          outlined
+        ></v-text-field>
+        <v-text-field
+          label="Phone"
+          type="tel"
+          v-model="form.phone"
+          :rules="rules.phoneRules"
+          outlined
+        ></v-text-field>
+        <v-select
+          v-model="form.language"
+          :items="languages"
+          :rules="rules.languageRules"
+          label="Language"
+          item-text="name"
+          item-value="abbr"
+          outlined
+        ></v-select>
+        <v-btn type="submit" block class="mt-2">Book now</v-btn>
+      </v-form>
+    </div>
+    <div v-else class="text-center success-message">
+      <img src="/img/success-checkbox.webp" width="50%">
+      <h5>Va multumim pentru programare!</h5>
+      <p> Data si ora programarii:</p>
+      <p>{{ appointmentData.dayFormat + ', ' + appointmentData.timeFormat }}</p>
+      <p>Mai multe detalii au fost expediate pe adresa de email introdusa.</p>
+      <v-btn type="button" @click="goBack" class="mt-2">Another Appointment</v-btn>
+    </div>
   </div>
 </template>
 
 <script>
+import scheduleApi from "~/api/scheduleApi";
+
 export default {
   name: "BookAppointment",
   props: {
@@ -59,6 +78,8 @@ export default {
   },
   data() {
     return {
+      loader: false,
+      successAppointment: false,
       languages: [
         {name: 'Romana', abbr: 'ro'},
         {name: 'Rusa', abbr: 'ru'},
@@ -67,7 +88,7 @@ export default {
         name: '',
         email: '',
         phone: '',
-        language: '',
+        language: 'ro',
       },
       rules: {
         nameRules: [
@@ -79,7 +100,7 @@ export default {
         ],
         phoneRules: [
           v => v.length > 0 || 'Phone is required.',
-          v => Number.isInteger(Number(v)) || "Phone must be an integer number",
+          v => Number.isInteger(Number(v)) || "Phone must be a number",
           v => v > 0 || 'Phone must be greater than zero'
         ],
         languageRules: [
@@ -89,8 +110,26 @@ export default {
     }
   },
   methods: {
-    bookAppointment() {
-      alert('bgf');
+    async bookAppointment() {
+      const valid = await this.$refs.form.validate()
+      if (valid) {
+        try {
+          this.loader = true;
+          const data = {
+            appointmentId: this.appointmentData.appointment.id,
+            name: this.form.name,
+            email: this.form.email,
+            phone: this.form.phone,
+            language: this.form.language,
+          };
+          await scheduleApi.bookAppointment(data);
+          this.successAppointment = true;
+          this.loader = false;
+        } catch (e) {
+          console.error(e);
+          this.loader = false;
+        }
+      }
     },
     goBack() {
       this.$nuxt.$emit('hideBookAppointment')
@@ -102,6 +141,7 @@ export default {
 <style lang="scss" scoped>
 .schedule-book-form {
   padding: 15px;
+  position: relative;
 }
 
 .book-form-heading {
@@ -121,4 +161,62 @@ export default {
 
   }
 }
+
+.success-message {
+  h5 {
+    font-size: 20px;
+    margin: 20px;
+  }
+
+  p {
+    font-size: 14px;
+    margin-bottom: 15px !important;
+  }
+}
+
+.loader-wrapper {
+  position: absolute;
+  width: 95%;
+  height: 70vh;
+  flex-wrap: wrap-reverse;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  z-index: 100;
+
+  .loader {
+    width: 48px;
+    height: 48px;
+    border: 3px solid #FFF;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+
+  .loader::after {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 3px solid #5f4bdb;
+    border-bottom-color: #FFF;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
 </style>
