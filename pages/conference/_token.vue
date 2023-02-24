@@ -1,29 +1,54 @@
 <template>
-  <v-container fluid class="bckg">
+  <v-container fluid class="conference-wrapper">
     <div class="video-area">
-      <!--      <h3 class="text-center">Room Id = mvldfmlvmdflvmdflvmdfl</h3>-->
-      <div v-if="!errorMessage">
-        <VideoCall :myId="myId" :recipientId="recipientId"/>
-      </div>
-      <div v-else>
-        <p class="text-alert text-center">
-          {{ errorMessage }}
-        </p>
-      </div>
+
+      <v-row justify="center" align-content="center" v-if="show === 'countdown'">
+        <v-col md="12" cols="12" class="text-center"></v-col>
+        <v-col md="12" cols="12" class="text-center" v-if="notReadyConference">
+          <CountDown :date="consultationStartsFullDate" v-if="consultationStartsFullDate"/>
+        </v-col>
+        <v-col md="12" cols="12" class="text-center" v-if="expiredConference">
+          <h3 class="expired-message">
+            Unfortunately, the conference expired on
+            {{ $moment(consultationEndsFullDate, 'MM D, YYYY HH:mm:ss').format('dddd, Do MMMM YYYY, HH:mm') }}
+          </h3>
+        </v-col>
+      </v-row>
+
+      <v-row justify="center" align-content="center" v-if="show === 'video'">
+        <VideoConference :conferenceToken="roomToken"/>
+      </v-row>
+
+      <v-row justify="center" align-content="center" v-if="show === 'error'">
+        <div v-if="errorMessage">
+          <p class="text-alert text-center">
+            {{ errorMessage }}
+          </p>
+        </div>
+      </v-row>
+
     </div>
   </v-container>
 </template>
 
 <script>
-
+import CountDown from "~/components/conference/CountDown";
 import VideoCall from "~/components/calls/VideoCall";
+import VideoConference from "~/components/conference/VideoConference";
 import axios from "axios";
 
 export default {
   layout: () => 'conference',
-  components: {VideoCall},
+  components: {CountDown, VideoCall, VideoConference},
   data() {
     return {
+      show: 'countdown',
+      notReadyConference: false,
+      expiredConference: false,
+      consultationStartsFullDate: null,
+      consultationEndsFullDate: null,
+      roomToken: null,
+
       loadedConference: false,
       errorMessage: null,
       myId: null,
@@ -33,16 +58,10 @@ export default {
   },
   async mounted() {
     const token = this.$route.params.token;
-    this.myId = token;
-    this.recipientId = token;
     await this.checkToken(token);
-  },
-  created() {
-    this.socket = this.$nuxtSocket({
-      channel: '/'
-    });
-    this.socket.on(`startCall-${this.myId}`, (data) => {
-      alert(this.myId);
+
+    this.$nuxt.$on('startConference', () => {
+      this.show = 'video';
     });
   },
   methods: {
@@ -51,28 +70,45 @@ export default {
         const result = await axios.get(
           `http://localhost:5000/api/conference/token?token=${token}`
         );
-        // this.myId = result.data.token;
-        // this.recipientId = result.data.token;
+        const consultation = result.data;
+        this.roomToken = result.data.token;
+        const consultationStartTime = this.$moment(consultation.startTime, 'HH:mm').format("HH:mm:ss");
+        const consultationEndTime = this.$moment(consultation.endTime, 'HH:mm').format("HH:mm:ss");
+        const consultationDate = this.$moment(consultation.date, 'YYYY MM DD').format("MM DD YYYY");
+        this.consultationStartsFullDate = this.$moment(consultationDate + ' ' + consultationStartTime, 'MM DD YYYY HH:mm:ss').format("MM D, YYYY HH:mm:ss");
+        this.consultationEndsFullDate = this.$moment(consultationDate + ' ' + consultationEndTime, 'MM DD YYYY HH:mm:ss').format("MM D, YYYY HH:mm:ss");
 
-        await this.startConference();
+        if (new Date() > new Date(this.consultationEndsFullDate)) {
+          this.expiredConference = true;
+        } else {
+          this.notReadyConference = true;
+        }
       } catch (e) {
         this.errorMessage = e.response.data.message;
       }
     },
-    startConference() {
-      if (!this.loadedConference) {
-        this.$socket.emit('startCall', JSON.stringify(
-          {senderId: this.myId, recipientId: this.recipientId}
-        ));
-        this.loadedConference = true;
-      }
-    }
   }
 }
 </script>
 
-<style scoped>
-.video-area {
-  height: 95vh;
+<style lang="scss" scoped>
+.conference-wrapper {
+  background-color: #5f4bdb;
+
+  .video-area {
+    height: 96vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    color: #f8f9fd;
+
+    .expired-message {
+      font-weight: 600;
+      font-size: 17px;
+      text-transform: uppercase;
+      line-height: 2;
+    }
+  }
 }
+
 </style>
