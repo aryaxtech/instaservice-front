@@ -70,6 +70,7 @@
 
 <script>
 import scheduleApi from "~/api/scheduleApi";
+import {mapGetters} from "vuex";
 
 export default {
   name: "BookAppointment",
@@ -107,6 +108,18 @@ export default {
           v => v.length > 0 || 'Name is required.',
         ],
       },
+    }
+  },
+  computed: {
+    ...mapGetters({
+      authUser: 'auth/getUser',
+    }),
+  },
+  mounted() {
+    if (this.authUser) {
+      this.form.name = this.authUser.name;
+      this.form.email = this.authUser.email;
+      this.form.phone = this.authUser.phone;
     }
   },
   methods: {

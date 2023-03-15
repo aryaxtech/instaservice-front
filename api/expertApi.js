@@ -38,7 +38,7 @@ export default {
    * @returns Promise
    */
   getExpertsByCategory: async (categoryId, pageNum, languageAbbr) => {
-    const url = `/api/experts?category_id=${categoryId}&active=1&page=${pageNum}&lang=${languageAbbr}`;
+    const url = `/api/experts?category_id=${categoryId}&active=1&page=${pageNum}&lang=${languageAbbr}&show_translation=1`;
     return await DefaultApiInstance.get(url);
   },
 

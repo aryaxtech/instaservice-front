@@ -109,7 +109,7 @@ export default {
     if (store.getters['category/getCategories'].length === 0) {
       await store.dispatch('category/fetchCategories');
     }
-    await store.dispatch('expert/fetchFeaturedExperts');
+    // await store.dispatch('expert/fetchFeaturedExperts');
   },
   watch: {
     async defaultLanguage() {
@@ -117,10 +117,10 @@ export default {
         .getCategoryBySlug(this.$route.params.slug)
         .then(async (response) => {
           const categoryId = response.data.id;
-          await this.fetchExpertsByCategory({
-            categoryId,
-            page: 1,
-          });
+          // await this.fetchExpertsByCategory({
+          //   categoryId,
+          //   page: 1,
+          // });
           await this.setCurrentCategory({
             currentCategory: response.data.name,
           });

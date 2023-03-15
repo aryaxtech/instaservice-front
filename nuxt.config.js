@@ -54,6 +54,7 @@ export default {
     '@nuxtjs/axios',
     'nuxt-socket-io',
     '@nuxtjs/i18n',
+    '@nuxtjs/auth-next',
   ],
 
   // moment: {
@@ -77,8 +78,8 @@ export default {
     // module options
     sockets: [{
       name: 'main',
-      // url: 'https://core.instantexpert.online',
-      url: 'http://127.0.0.1:5000',
+      url: 'https://core.instantexpert.online',
+      // url: 'http://127.0.0.1:5000',
     }]
   },
 

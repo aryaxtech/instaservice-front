@@ -256,12 +256,40 @@
           </v-list>
         </v-menu>
       </li>
+      <li class="navigation__item" v-if="authUser">
+        <v-menu open-on-hover close-on-click rounded="b-xl" offset-y>
+          <template #activator="{ on, attrs }">
+            <div stlye="z-index: 10" v-bind="attrs" v-on="on">Welcome, {{ authUser.name }}</div>
+          </template>
+          <v-list>
+            <v-list-item>
+              <v-list-item-title>
+                <a @click="logout">
+                  Logout
+                </a>
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </li>
     </ul>
-    <a class="navigation__item--purple" href="#"> {{ $t('connectWallet') }} </a>
+    <nuxt-link class="navigation__item--purple"
+               :to="`/${$i18n.locale}/auth/login`"
+               v-if="!authUser">
+      LOG IN
+    </nuxt-link>
+    <!--    <nuxt-link class="navigation__item&#45;&#45;purple"-->
+    <!--               :to="`#`"-->
+    <!--               v-else>-->
+    <!--      Welcome, {{ authUser.name }}-->
+    <!--    </nuxt-link>-->
+
   </nav>
 </template>
 
 <script>
+import {mapGetters, mapActions} from "vuex";
+
 export default {
   data: () => ({
     width: null,
@@ -285,7 +313,20 @@ export default {
       deep: true,
     },
   },
+  computed: {
+    ...mapGetters({
+      authUser: 'auth/getUser',
+      defaultLanguage: 'language/getDefaultLanguage',
+    })
+  },
   methods: {
+    ...mapActions({
+      onLogout: 'auth/onLogout',
+    }),
+    async logout() {
+      await this.onLogout();
+      await this.$router.push(`/${this.defaultLanguage}`);
+    },
     updateWidth() {
       this.width = window.innerWidth;
       if (this.width > 1121) {

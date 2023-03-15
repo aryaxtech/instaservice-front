@@ -19,6 +19,7 @@
       <TheSearch/>
       <TheNavigation/>
       <LanguageSwitcher/>
+      <LoginListener/>
 <!--      <img src="/img/index/main/wallet.svg" class="mobile-wallet" alt=""/>-->
     </div>
   </header>
@@ -29,9 +30,10 @@ import {mapGetters} from "vuex";
 import TheNavigation from '~/components/TheNavigation.vue';
 import TheSearch from '~/components/TheSearch.vue';
 import LanguageSwitcher from "~/components/LanguageSwitcher";
+import LoginListener from "~/components/listeners/LoginListener";
 
 export default {
-  components: {TheNavigation, TheSearch, LanguageSwitcher},
+  components: {TheNavigation, TheSearch, LanguageSwitcher, LoginListener},
   data: () => ({
     width: null,
     yPosition: null,
