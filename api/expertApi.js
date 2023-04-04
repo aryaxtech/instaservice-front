@@ -32,6 +32,17 @@ export default {
   },
 
   /**
+   * Fetch one expert by id
+   * @param {String} categorySlug
+   * @param {String} expertSlug
+   * @returns Promise
+   */
+  getExpertById: async (id, languageAbbr) => {
+    const url = `/api/expert/${id}?lang=${languageAbbr}`;
+    return await DefaultApiInstance.get(url);
+  },
+
+  /**
    * Fetch experts by category id
    * @param {Integer} categoryId
    * @param {Integer} pageNum

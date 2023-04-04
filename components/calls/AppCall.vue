@@ -6,23 +6,34 @@
         <video-call :myId='myId' :recipientId='recipientId'/>
       </div>
     </div>
+    <div class="text-center">
+      <v-dialog
+        v-model="paymentDialog"
+        width="auto"
+      >
+        <payment-modal :expert="expert"/>
+      </v-dialog>
+    </div>
   </div>
 </template>
 
 <script>
 
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import OutGoingCall from "@/components/calls/OutGoingCall";
 import VideoCall from "@/components/calls/VideoCall";
+import PaymentModal from "~/components/payments/PaymentModal";
 
 export default {
   name: "AppCall",
   components: {
     OutGoingCall,
     VideoCall,
+    PaymentModal,
   },
   data() {
     return {
+      paymentDialog: false,
       callProcess: false,
       myId: null,
       recipientId: null,
@@ -30,11 +41,21 @@ export default {
       expert: null,
     }
   },
+  computed: {
+    ...mapGetters({
+      client: 'client/getClient'
+    }),
+  },
   mounted() {
     this.$nuxt.$on('call', (expert) => {
       this.expert = expert;
-      this.recipientId = `expert-${expert.id}`;
-      this.initCall();
+      const canCall = localStorage.getItem('canCall') ?? 'false';
+      if (canCall === 'true') {
+        this.recipientId = `expert-${expert.id}`;
+        this.initCall();
+      } else {
+        this.paymentDialog = true;
+      }
     });
   },
   created() {
@@ -92,6 +113,7 @@ export default {
     endCall() {
       this.$el.querySelector('.call-container').classList.remove('container-increased');
       this.$el.querySelector('.call-app').classList.remove('call-app-display');
+      localStorage.setItem('canCall', false);
       this.callProcess = false;
     }
   }

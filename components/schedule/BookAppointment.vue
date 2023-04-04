@@ -63,6 +63,8 @@
       <p> Data si ora programarii:</p>
       <p>{{ appointmentData.dayFormat + ', ' + appointmentData.timeFormat }}</p>
       <p>Mai multe detalii au fost expediate pe adresa de email introdusa.</p>
+      <v-btn type="button" @click="payNow" class="mt-2">Pay Appointment</v-btn>
+      <br>
       <v-btn type="button" @click="goBack" class="mt-2">Another Appointment</v-btn>
     </div>
   </div>
@@ -70,12 +72,13 @@
 
 <script>
 import scheduleApi from "~/api/scheduleApi";
-import {mapGetters} from "vuex";
+import {mapGetters, mapActions} from "vuex";
 
 export default {
   name: "BookAppointment",
   props: {
     appointmentData: {type: Object},
+    expert: {type: Object},
   },
   data() {
     return {
@@ -113,6 +116,8 @@ export default {
   computed: {
     ...mapGetters({
       authUser: 'auth/getUser',
+      order: 'client/getOrder',
+      client: 'client/getClient',
     }),
   },
   mounted() {
@@ -123,6 +128,33 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      setOrder: 'client/setOrder',
+    }),
+    async payNow() {
+      await this.storeOrder();
+      window.location.href = `http://localhost:63342/instantexpert-paypal/?token=${this.order.token}`;
+    },
+    async storeOrder() {
+      const date = new Date();
+      const callDate = this.$moment(date, 'MM D, YYYY HH:mm:ss').format('Do MMMM YYYY');
+      const callTime = this.$moment(date, 'MM D, YYYY HH:mm:ss').format('HH:mm');
+      const data = {
+        expert_id: this.expert.id,
+        user_id: this.client.id,
+        type: 'conference',
+        amount: this.expert.price,
+        date: callDate,
+        time: callTime,
+        duration: '0',
+      };
+      try {
+        await this.setOrder(data);
+        localStorage.setItem('order', JSON.stringify(this.order));
+      } catch (e) {
+        console.error(e);
+      }
+    },
     async bookAppointment() {
       const valid = await this.$refs.form.validate()
       if (valid) {

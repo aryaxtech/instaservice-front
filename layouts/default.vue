@@ -10,6 +10,7 @@
     <TheFooter/>
     <app-call/>
     <schedule/>
+    <payment-notification-listener/>
   </v-app>
 </template>
 
@@ -19,10 +20,11 @@ import TheHeader from '~/components/TheHeader.vue';
 import TheMainHero from '~/components/TheMainHero.vue';
 import AppCall from '~/components/calls/AppCall';
 import Schedule from '~/components/schedule/Schedule';
+import PaymentNotificationListener from "~/components/listeners/PaymentNotificationListener";
 
 export default {
   name: 'DefaultLayout',
-  components: {TheHeader, TheMainHero, TheFooter, AppCall, Schedule},
+  components: {TheHeader, TheMainHero, TheFooter, AppCall, Schedule, PaymentNotificationListener},
   data() {
     return {
       clipped: false,

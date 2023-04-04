@@ -31,7 +31,8 @@ export default {
   plugins: [
     { src: '@/plugins/socket', ssr: false },
     { src: '@plugins/v-calendar.js', ssr: false },
-    { src: '@plugins/countdown.js', ssr: false }
+    { src: '@plugins/countdown.js', ssr: false },
+    { src: '@/plugins/paypal.js' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -78,8 +79,8 @@ export default {
     // module options
     sockets: [{
       name: 'main',
-      url: 'https://core.instantexpert.online',
-      // url: 'http://127.0.0.1:5000',
+      // url: 'https://core.instantexpert.online',
+      url: 'http://127.0.0.1:5000',
     }]
   },
 
@@ -114,7 +115,7 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {vendor: ['vue-paypal-checkout']},
 
   vue: {
     config: {

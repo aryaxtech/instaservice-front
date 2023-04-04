@@ -115,6 +115,11 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      dialog: false,
+    }
+  },
   methods: {
     call(expert) {
       this.$nuxt.$emit('call', expert);
@@ -127,6 +132,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.v-card__text {
+  padding-top: 30px !important;
+}
+
+.v-card__actions {
+  display: block;
+  text-align: center;
+  padding-bottom: 30px !important;
+}
+
+.heading-text {
+  font-size: 18px;
+  padding-right: 30px;
+  text-align: center;
+}
+
 .online {
   background: #219653 !important;
 }

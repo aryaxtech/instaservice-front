@@ -33,7 +33,8 @@
         </div>
 
         <BookAppointment v-if="!showCalendar"
-                         :appointmentData="appointmentData"/>
+                         :appointmentData="appointmentData"
+                         :expert="expert"/>
 
       </div>
     </div>
