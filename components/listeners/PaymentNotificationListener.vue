@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     payNow() {
-      window.location.href = `http://localhost:63342/instantexpert-paypal/?token=${this.order.token}`;
+      window.location.href = `https://payments.instantexpert.online/?token=${this.order.token}`;
     }
   }
 }

@@ -28,7 +28,7 @@ export default {
     }),
     async payNow() {
       await this.storeOrder();
-      window.location.href = `http://localhost:63342/instantexpert-paypal/?token=${this.order.token}`;
+      window.location.href = `https://payments.instantexpert.online/?token=${this.order.token}`;
     },
     async storeOrder() {
       const date = new Date();
