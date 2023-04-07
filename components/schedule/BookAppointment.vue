@@ -54,7 +54,7 @@
           item-value="abbr"
           outlined
         ></v-select>
-        <v-btn type="submit" block class="mt-2">Book now</v-btn>
+        <v-btn type="submit" block class="mt-2">Pay now</v-btn>
       </v-form>
     </div>
     <div v-else class="text-center success-message">
@@ -133,19 +133,17 @@ export default {
     }),
     async payNow() {
       await this.storeOrder();
-      window.location.href = `http://localhost:63342/instantexpert-paypal/?token=${this.order.token}`;
+      window.location.href = `https://payments.instantexpert.online/?token=${this.order.token}`;
     },
     async storeOrder() {
-      const date = new Date();
-      const callDate = this.$moment(date, 'MM D, YYYY HH:mm:ss').format('Do MMMM YYYY');
-      const callTime = this.$moment(date, 'MM D, YYYY HH:mm:ss').format('HH:mm');
       const data = {
         expert_id: this.expert.id,
         user_id: this.client.id,
+        appointment_id: this.appointmentData.appointment.id,
         type: 'conference',
         amount: this.expert.price,
-        date: callDate,
-        time: callTime,
+        date: this.appointmentData.dayFormat,
+        time: this.appointmentData.timeFormat,
         duration: '0',
       };
       try {
@@ -168,7 +166,8 @@ export default {
             language: this.form.language,
           };
           await scheduleApi.bookAppointment(data);
-          this.successAppointment = true;
+          await this.payNow();
+          // this.successAppointment = true;
           this.loader = false;
         } catch (e) {
           console.error(e);
