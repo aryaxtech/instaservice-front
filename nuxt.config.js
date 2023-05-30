@@ -118,7 +118,7 @@ export default {
 
   vue: {
     config: {
-      productionTip: false,
+      productionTip: true,
       devtools: true,
     },
   },
