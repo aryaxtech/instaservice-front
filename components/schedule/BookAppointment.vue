@@ -64,6 +64,9 @@
       <p>{{ appointmentData.dayFormat + ', ' + appointmentData.timeFormat }}</p>
       <p>Mai multe detalii au fost expediate pe adresa de email introdusa.</p>
 <!--      <v-btn type="button" @click="payNow" class="mt-2">Pay Appointment</v-btn>-->
+
+
+
       <br>
       <v-btn type="button" @click="goBack" class="mt-2">Another Appointment</v-btn>
     </div>
