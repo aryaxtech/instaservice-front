@@ -28,10 +28,10 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '@/plugins/socket', ssr: false },
-    { src: '@plugins/v-calendar.js', ssr: false },
-    { src: '@plugins/countdown.js', ssr: false },
-    { src: '@/plugins/paypal.js' },
+    {src: '@/plugins/socket', ssr: false},
+    {src: '@plugins/v-calendar.js'},
+    {src: '@plugins/countdown.js', ssr: false},
+    {src: '@/plugins/paypal.js'},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -114,7 +114,12 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {vendor: ['vue-paypal-checkout']},
+  build: {
+    vendor: ['vue-paypal-checkout'],
+    build: {
+      transpile: ['v-calendar']
+    }
+  },
 
   vue: {
     config: {

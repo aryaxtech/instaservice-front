@@ -54,7 +54,7 @@
           item-value="abbr"
           outlined
         ></v-select>
-        <v-btn type="submit" block class="mt-2">Pay now</v-btn>
+        <v-btn type="submit" block class="mt-2">Book now</v-btn>
       </v-form>
     </div>
     <div v-else class="text-center success-message">
@@ -63,10 +63,7 @@
       <p> Data si ora programarii:</p>
       <p>{{ appointmentData.dayFormat + ', ' + appointmentData.timeFormat }}</p>
       <p>Mai multe detalii au fost expediate pe adresa de email introdusa.</p>
-<!--      <v-btn type="button" @click="payNow" class="mt-2">Pay Appointment</v-btn>-->
-
-
-
+      <v-btn type="button" @click="payNow" class="mt-2">Pay Appointment</v-btn>
       <br>
       <v-btn type="button" @click="goBack" class="mt-2">Another Appointment</v-btn>
     </div>
@@ -169,8 +166,8 @@ export default {
             language: this.form.language,
           };
           await scheduleApi.bookAppointment(data);
-          await this.payNow();
-          // this.successAppointment = true;
+          // await this.payNow();
+          this.successAppointment = true;
           this.loader = false;
         } catch (e) {
           console.error(e);

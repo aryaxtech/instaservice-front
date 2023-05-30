@@ -65,10 +65,10 @@
             <div class="footer__container__right__block__link__icon">
               <img src="/img/index/footer/map.svg" alt=""/>
               <a
-                href="mailto:info@talkearn.app"
+                href="mailto:info@instantexpert.online"
                 class="footer__container__right__block__link"
               >
-                info@instaservice.io
+                info@instantexpert.online
               </a>
             </div>
             <div class="footer__container__right__block__link__icon">

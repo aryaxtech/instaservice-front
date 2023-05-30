@@ -19,7 +19,7 @@
     <BenefitsWorkSection/>
 
     <!-- Customers Section -->
-    <CustomerSection/>
+<!--    <CustomerSection/>-->
   </div>
 </template>
 

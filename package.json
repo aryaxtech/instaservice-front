@@ -30,6 +30,7 @@
     "vue-media-recorder": "^0.1.25",
     "vue-paypal-checkout": "^3.2.0",
     "vue-server-renderer": "^2.7.10",
+    "vue-simple-calendar": "^6.3.1",
     "vue-socket.io": "^3.0.10",
     "vue-template-compiler": "^2.7.10",
     "vuetify": "^2.6.10",

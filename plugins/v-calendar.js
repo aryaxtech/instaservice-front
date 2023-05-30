@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VCalendar from 'v-calendar';
 
-Vue.use(VCalendar, {
-  datePickerTintColor: '#F00',
-  datePickerShowDayPopover: false
-})
+export default function () {
+  Vue.use(VCalendar, {
+    datePickerTintColor: '#F00',
+    datePickerShowDayPopover: true
+  })
+};
+

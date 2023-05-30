@@ -12,12 +12,12 @@
         {{ $t('benefitsText') }}
       </p>
       <div class="benefits__left__btn">
-        <a href="#" class="benefits__left__btn-main">{{ $t('startLearning') }}</a>
-        <a
-          href="https://talkearn.gitbook.io/talkearn/"
-          class="benefits__left__btn-secondary">
-          <u>{{ $t('readMore') }}</u>
-        </a>
+        <nuxt-link :to="`/${$i18n.locale}/auth/register`" class="benefits__left__btn-main">{{ $t('startLearning') }}</nuxt-link>
+<!--        <a-->
+<!--          href="https://talkearn.gitbook.io/talkearn/"-->
+<!--          class="benefits__left__btn-secondary">-->
+<!--          <u>{{ $t('readMore') }}</u>-->
+<!--        </a>-->
       </div>
     </div>
     <div class="benefits__right">
