@@ -155,6 +155,13 @@
           </v-list>
         </v-menu>
       </li>
+      <li class="navigation__item">
+        <a
+          target="_blank" class="black-link"
+          href="https://talkearn.gitbook.io/instaservice/">
+          Docs
+        </a>
+      </li>
       <!--      <li class="navigation__item">-->
       <!--        <v-menu open-on-hover close-on-click rounded="b-xl" offset-y>-->
       <!--          <template #activator="{ on, attrs }">-->
@@ -176,60 +183,60 @@
       <!--          </v-list>-->
       <!--        </v-menu>-->
       <!--      </li>-->
-      <li class="navigation__item">
-        <v-menu open-on-hover close-on-click rounded="b-xl" offset-y>
-          <template #activator="{ on, attrs }">
-            <div stlye="z-index: 10" v-bind="attrs" v-on="on">Docs</div>
-          </template>
-          <v-list>
-            <v-list-item>
-              <v-list-item-title>
-                <a
-                  target="_blank"
-                  href="https://talkearn.gitbook.io/instaservice/">
-                  {{ $t('gitbook') }}
-                </a>
-              </v-list-item-title>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-title>
-                <a
-                  target="_blank"
-                  href="https://talkearn.gitbook.io/instaservice/our-ecosystem/about-instaservice">
-                  {{ $t('about') }}
-                </a>
-              </v-list-item-title>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-title>
-                <a
-                  target="_blank"
-                  href="https://talkearn.gitbook.io/instaservice/our-ecosystem/how-it-works">
-                  {{ $t('howItWorks') }}
-                </a>
-              </v-list-item-title>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-title>
-                <a
-                  target="_blank"
-                  href="https://talkearn.gitbook.io/instaservice/our-ecosystem/faq">
-                  {{ $t('faq') }}
-                </a>
-              </v-list-item-title>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-title>
-                <a
-                  target="_blank"
-                  href="https://www.canva.com/design/DAFTCFsSz6s/3HdX7szhwt0aILtTU0C6yQ/view?utm_content=DAFTCFsSz6s&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink">
-                  {{ $t('pitchDeck') }}
-                </a>
-              </v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </li>
+<!--      <li class="navigation__item">-->
+<!--        <v-menu open-on-hover close-on-click rounded="b-xl" offset-y>-->
+<!--          <template #activator="{ on, attrs }">-->
+<!--            <div stlye="z-index: 10" v-bind="attrs" v-on="on">Docs</div>-->
+<!--          </template>-->
+<!--          <v-list>-->
+<!--            <v-list-item>-->
+<!--              <v-list-item-title>-->
+<!--                <a-->
+<!--                  target="_blank"-->
+<!--                  href="https://talkearn.gitbook.io/instaservice/">-->
+<!--                  {{ $t('gitbook') }}-->
+<!--                </a>-->
+<!--              </v-list-item-title>-->
+<!--            </v-list-item>-->
+<!--            <v-list-item>-->
+<!--              <v-list-item-title>-->
+<!--                <a-->
+<!--                  target="_blank"-->
+<!--                  href="https://talkearn.gitbook.io/instaservice/our-ecosystem/about-instaservice">-->
+<!--                  {{ $t('about') }}-->
+<!--                </a>-->
+<!--              </v-list-item-title>-->
+<!--            </v-list-item>-->
+<!--            <v-list-item>-->
+<!--              <v-list-item-title>-->
+<!--                <a-->
+<!--                  target="_blank"-->
+<!--                  href="https://talkearn.gitbook.io/instaservice/our-ecosystem/how-it-works">-->
+<!--                  {{ $t('howItWorks') }}-->
+<!--                </a>-->
+<!--              </v-list-item-title>-->
+<!--            </v-list-item>-->
+<!--            <v-list-item>-->
+<!--              <v-list-item-title>-->
+<!--                <a-->
+<!--                  target="_blank"-->
+<!--                  href="https://talkearn.gitbook.io/instaservice/our-ecosystem/faq">-->
+<!--                  {{ $t('faq') }}-->
+<!--                </a>-->
+<!--              </v-list-item-title>-->
+<!--            </v-list-item>-->
+<!--            <v-list-item>-->
+<!--              <v-list-item-title>-->
+<!--                <a-->
+<!--                  target="_blank"-->
+<!--                  href="https://www.canva.com/design/DAFTCFsSz6s/3HdX7szhwt0aILtTU0C6yQ/view?utm_content=DAFTCFsSz6s&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink">-->
+<!--                  {{ $t('pitchDeck') }}-->
+<!--                </a>-->
+<!--              </v-list-item-title>-->
+<!--            </v-list-item>-->
+<!--          </v-list>-->
+<!--        </v-menu>-->
+<!--      </li>-->
 
       <li class="navigation__item">
         <v-menu open-on-hover close-on-click rounded="b-xl" offset-y>
@@ -503,5 +510,9 @@ export default {
 
 .v-list-item__title a {
   color: #1f2131;
+}
+
+.black-link {
+  color: black;
 }
 </style>

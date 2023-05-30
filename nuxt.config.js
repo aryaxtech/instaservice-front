@@ -3,7 +3,6 @@ import ro from './locales/ro';
 import ru from './locales/ru';
 
 export default {
-  mode: 'universal',
   ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   server: {

@@ -49,7 +49,8 @@ export default {
   mounted() {
     this.$nuxt.$on('call', (expert) => {
       this.expert = expert;
-      const canCall = localStorage.getItem('canCall') ?? 'false';
+      // const canCall = localStorage.getItem('canCall') ?? 'false';
+      const canCall = 'true';
       if (canCall === 'true') {
         this.recipientId = `expert-${expert.id}`;
         this.initCall();
