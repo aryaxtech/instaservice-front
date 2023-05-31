@@ -43,7 +43,7 @@ export default {
   from: 'De la',
   price: 'Pret',
   memberSince: 'Membru din ',
-  rate: 'Rating',
+  rate: 'Pret',
   languages: 'Limbile',
   experience: 'Experienta',
   duration: 'Durata Consultatiei',
@@ -61,5 +61,8 @@ export default {
   searchPsychologists: 'Toti psihologi care corespund criteriilor tale de caiutare',
   resultsFor: 'Rezultate pentru',
   searchEnterData: 'Este necesar sa scrieti ceva in cimpul de cautare',
-  searchNotFound: 'Ups, nu există psihologi care să corespundă criteriilor tale de căutare. Incearca din nou :('
+  searchNotFound: 'Ups, nu există psihologi care să corespundă criteriilor tale de căutare. Incearca din nou :(',
+  scheduleFor: 'Calendar pentru',
+  noAppointments : 'Nu sunt sloturi disponibile pentru',
+  chooseAnother: 'Va rog sa selectati o alta zi',
 };

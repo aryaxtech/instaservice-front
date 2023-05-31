@@ -12,15 +12,15 @@
         <p class="hero__description">
           {{ $t('bannerTitle') }}
         </p>
-        <div class="search">
-          <input
-            v-model="searchValue"
-            type="search"
-            :placeholder="$t('searcHere')"
-            class="search__input"
-          />
-          <button class="search__button" @click="search">{{ $t('search') }}</button>
-        </div>
+<!--        <div class="search">-->
+<!--          <input-->
+<!--            v-model="searchValue"-->
+<!--            type="search"-->
+<!--            :placeholder="$t('searcHere')"-->
+<!--            class="search__input"-->
+<!--          />-->
+<!--          <button class="search__button" @click="search">{{ $t('search') }}</button>-->
+<!--        </div>-->
       </div>
       <div class="hero__right">
         <div>

@@ -43,7 +43,7 @@ export default {
   from: 'От',
   price: 'Цена',
   memberSince: 'На сайте с',
-  rate: 'Рейтинг',
+  rate: 'Цена',
   languages: 'Языки',
   experience: 'Опыт',
   duration: 'Длительность сеанса',
@@ -58,4 +58,7 @@ export default {
   perMinute: 'за сеанс',
   viewAnotherExperts: 'Другие психологи которые консультируют на тему',
   psychologistConsultation: 'Психологи которые консультируют на тему',
+  scheduleFor: 'Календарь для',
+  noAppointments : 'Нет свободоных мест для',
+  chooseAnother: 'Пожалуйста выберите другой день',
 };

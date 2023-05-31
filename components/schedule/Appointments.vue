@@ -24,8 +24,8 @@
     <v-row class="appointments-list" v-else>
       <v-col sm="12">
         <p class="text-center">
-          There are no appointments for <b>{{ formatDate(selectedDay) }}</b>,
-          please choose another day.
+          {{ $t('noAppointments') }} <b>{{ formatDate(selectedDay) }}</b>,
+          {{ $t('chooseAnother') }}.
         </p>
       </v-col>
     </v-row>

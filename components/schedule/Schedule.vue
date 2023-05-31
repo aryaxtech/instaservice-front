@@ -10,7 +10,7 @@
             <img :src="expert.avatar" height="50">
           </v-col>
           <v-col cols="9">
-            Schedule for {{ expert.name }}
+            {{ $t('scheduleFor') }} {{ expert.name }}
           </v-col>
         </v-row>
 

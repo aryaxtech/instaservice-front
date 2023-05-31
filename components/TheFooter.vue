@@ -2,9 +2,10 @@
   <v-footer class="footer">
     <div class="footer__container">
       <div class="footer__container__left">
-        <img src="@/static/img/white-logo.png" style="width: 300px" alt=""/>
 
         <div class="footer__container__right">
+          <img src="@/static/img/white-logo.png" style="height: 60px" alt=""/>
+
           <div class="footer__container__right__block">
             <p class="footer__container__right__block__name">{{ $t('experts') }}</p>
             <nuxt-link :to="`/${$i18n.locale}`" class="footer__container__right__block__link">
@@ -15,51 +16,40 @@
               class="footer__container__right__block__link">
               {{ $t('expertsByCategory') }}
             </nuxt-link>
-          </div>
-          <!--          <div class="footer__container__right__block">-->
-          <!--            <p class="footer__container__right__block__name">-->
-          <!--              Become an expert-->
-          <!--            </p>-->
-          <!--            <nuxt-link-->
-          <!--              to="/become"-->
-          <!--              class="footer__container__right__block__link"-->
-          <!--            >How to become an expert-->
-          <!--            </nuxt-link-->
-          <!--            >-->
-          <!--            <nuxt-link-->
-          <!--              to="/become/expert"-->
-          <!--              class="footer__container__right__block__link"-->
-          <!--            >Fill out the form-->
-          <!--            </nuxt-link-->
-          <!--            >-->
-          <!--          </div>-->
-          <div class="footer__container__right__block">
-            <p class="footer__container__right__block__name">{{ $t('docs') }}</p>
             <a
               target="_blank"
               href="https://talkearn.gitbook.io/instaservice/"
               class="footer__container__right__block__link">
-              {{ $t('gitbook') }}
-            </a>
-            <a
-              target="_blank"
-              href="https://talkearn.gitbook.io/instaservice/our-ecosystem/about-instaservice"
-              class="footer__container__right__block__link">
-              {{ $t('about') }}
-            </a>
-            <a
-              target="_blank"
-              class="footer__container__right__block__link"
-              href="https://talkearn.gitbook.io/instaservice/our-ecosystem/how-it-works">
-              {{ $t('howItWork') }}
-            </a>
-            <a
-              target="_blank"
-              class="footer__container__right__block__link"
-              href="https://talkearn.gitbook.io/instaservice/our-ecosystem/faq">
-              {{ $t('faq') }}
+              {{ $t('docs') }}
             </a>
           </div>
+<!--          <div class="footer__container__right__block">-->
+<!--            <p class="footer__container__right__block__name">{{ $t('docs') }}</p>-->
+<!--            <a-->
+<!--              target="_blank"-->
+<!--              href="https://talkearn.gitbook.io/instaservice/"-->
+<!--              class="footer__container__right__block__link">-->
+<!--              {{ $t('gitbook') }}-->
+<!--            </a>-->
+<!--            <a-->
+<!--              target="_blank"-->
+<!--              href="https://talkearn.gitbook.io/instaservice/our-ecosystem/about-instaservice"-->
+<!--              class="footer__container__right__block__link">-->
+<!--              {{ $t('about') }}-->
+<!--            </a>-->
+<!--            <a-->
+<!--              target="_blank"-->
+<!--              class="footer__container__right__block__link"-->
+<!--              href="https://talkearn.gitbook.io/instaservice/our-ecosystem/how-it-works">-->
+<!--              {{ $t('howItWork') }}-->
+<!--            </a>-->
+<!--            <a-->
+<!--              target="_blank"-->
+<!--              class="footer__container__right__block__link"-->
+<!--              href="https://talkearn.gitbook.io/instaservice/our-ecosystem/faq">-->
+<!--              {{ $t('faq') }}-->
+<!--            </a>-->
+<!--          </div>-->
           <div class="footer__container__right__block footer__adress">
             <p class="footer__container__right__block__name">{{ $t('contacts') }}</p>
             <div class="footer__container__right__block__link__icon">

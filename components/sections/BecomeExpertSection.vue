@@ -12,7 +12,7 @@
           <p>{{ $t('becomingTherapist') }}</p>
         </h2>
 
-        <nuxt-link :to="`/${$i18n.locale}/become`" class="become-expert__container__text__btn">{{ $t('joinWithUs') }}</nuxt-link>
+        <nuxt-link :to="`/${$i18n.locale}/auth/register`" class="become-expert__container__text__btn">{{ $t('joinWithUs') }}</nuxt-link>
       </div>
     </div>
   </section>

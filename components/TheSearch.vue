@@ -20,7 +20,7 @@
     >
       <template #no-data>
         <v-list-item>
-          <v-list-item-title> {{ $t('searchExpert') }} </v-list-item-title>
+          <v-list-item-title> {{ $t('searchExpert') }}</v-list-item-title>
         </v-list-item>
       </template>
       <template #item="{ item }">
@@ -28,7 +28,7 @@
           color="indigo"
           class="text-h5 font-weight-light white--text"
         >
-          <img :src="item.avatar" />
+          <img :src="item.avatar"/>
         </v-list-item-avatar>
         <v-badge
           v-if="item.available"
@@ -44,7 +44,7 @@
         />
         <v-list-item-content>
           <v-list-item-title>{{ item.name }}</v-list-item-title>
-          <v-list-item-subtitle>{{ item.category.slug }}</v-list-item-subtitle>
+<!--          <v-list-item-subtitle>{{ item.category.slug }}</v-list-item-subtitle>-->
         </v-list-item-content>
       </template>
     </v-autocomplete>
@@ -60,7 +60,7 @@
       class="search__button--main"
       @click.prevent="getSearchPage()"
     >
-      <img src="/img/index/search.svg" alt="search" />
+      <img src="/img/index/search.svg" alt="search"/>
     </button>
 
     <button
@@ -68,14 +68,15 @@
       class="search__button--secondary"
       @click.prevent="getSearchPage()"
     >
-      <img src="/img/index/search.svg" alt="search" />
+      <img src="/img/index/search.svg" alt="search"/>
     </button>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 import debounce from 'lodash.debounce';
+
 export default {
   data: () => ({
     localSearchValue: {},
@@ -104,13 +105,17 @@ export default {
     }),
 
     filerData(item, queryText) {
-      if (item) {
-        return (
-          item.name.toLowerCase().includes(queryText.toLowerCase()) ||
-          item.description.toLowerCase().includes(queryText.toLowerCase()) ||
-          item.slug.toLowerCase().includes(queryText.toLowerCase()) ||
-          item.categorySlug.toLowerCase().includes(queryText.toLowerCase())
-        );
+      try {
+        if (item) {
+          return (
+            item.name.toLowerCase().includes(queryText.toLowerCase()) ||
+            item.description.toLowerCase().includes(queryText.toLowerCase()) ||
+            // item.slug.toLowerCase().includes(queryText.toLowerCase()) ||
+            item.categorySlug.toLowerCase().includes(queryText.toLowerCase())
+          );
+        }
+      } catch (e) {
+        console.log(e);
       }
     },
 
@@ -134,7 +139,7 @@ export default {
 
     handleSearchValue: debounce(async function (val) {
       this.isLoading = false;
-      this.setSearchValue({ searchValue: val });
+      this.setSearchValue({searchValue: val});
       await this.setGlobalSearchValue(this.searchValue);
     }, 500),
 
@@ -143,14 +148,15 @@ export default {
       if (this.search === null) {
         this.search = '';
       }
-      this.$router.push(`/${this.$i18n.locale}/search?find=${this.search}`);
+      // this.$router.push(`/${this.$i18n.locale}/search?find=${this.search}`);
     },
 
     getExpertPage() {
       this.isLoading = false;
       this.clearExperts();
+      console.log(this.localSearchValue);
       this.$router.push(
-        `/${this.$i18n.locale}/expert/${this.localSearchValue.category.slug}/${this.localSearchValue.slug}`
+        `/${this.$i18n.locale}/expert/search/${this.localSearchValue.slug}`
       );
     },
   },
@@ -203,6 +209,7 @@ export default {
           width: 30px;
           transform: translateX(-16px);
         }
+
         & img {
           transform: translateX(-45px);
           @include rwdmax(434px) {
@@ -211,6 +218,7 @@ export default {
           }
         }
       }
+
       .search__button--main {
         & img {
           position: relative;
@@ -222,6 +230,7 @@ export default {
           z-index: 100;
         }
       }
+
       & button {
         position: relative;
       }

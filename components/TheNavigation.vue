@@ -159,7 +159,7 @@
         <a
           target="_blank" class="black-link"
           href="https://talkearn.gitbook.io/instaservice/">
-          Docs
+          {{ $t('docs') }}
         </a>
       </li>
       <!--      <li class="navigation__item">-->
@@ -256,7 +256,7 @@
               <v-list-item-title>
                 <a
                   href="tel:+40746150515"
-                >40746150515</a
+                >+ 40746150515</a
                 >
               </v-list-item-title>
             </v-list-item>
